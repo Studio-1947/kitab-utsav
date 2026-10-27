@@ -1,0 +1,102 @@
+/*
+  Rajkamal Prakashan design tokens, from rajkamal-design-system/tokens.json.
+  Raw values use the --rk- prefix; globals.css maps them into Tailwind's theme
+  (bg-page, text-accent, shadow-card, ...). Theme is set by <html data-theme>.
+*/
+
+:root,
+[data-theme="light"] {
+  --rk-page: #fffdfb;
+  --rk-page-warm: #fbf1e4;
+  --rk-surface-card: #fff7ec;
+  --rk-surface-content: #fffcf8;
+  --rk-surface-soft: #fbf3ea;
+  --rk-cover-well: #efe3d3;
+  --rk-border: #e6cdae;
+  --rk-border-soft: #f2dfcc;
+  --rk-border-content: #eddccc;
+  --rk-ink: #591416;
+  --rk-ink-content: #3c140a;
+  --rk-ink-muted: #7d5e53;
+  --rk-accent: #a0361f;
+  --rk-accent-hover: #8a2a17;
+  --rk-accent-fill: #a0361f;
+  --rk-on-accent: #ffffff;
+  --rk-accent-soft: rgba(160, 54, 31, 0.08);
+  --rk-discount-tint: rgba(160, 54, 31, 0.12);
+  --rk-crimson: #bc0005;
+  --rk-logo-red: #cb2323;
+  --rk-wish-red: #e5484d;
+  --rk-good: #2f7a4c;
+  --rk-on-good: #ffffff;
+  --rk-bad: #c62828;
+  --rk-toast-bg: rgba(30, 12, 10, 0.94);
+  --rk-toast-ink: #ffffff;
+  --rk-toast-icon: #ffd24d;
+  --rk-footer-bg: #6b1b21;
+  --rk-footer-ink: #f7e3d8;
+  --rk-gold: #ffe174;
+  --rk-clay: #c1692f;
+  --rk-tabbar-bg: rgba(255, 253, 251, 0.97);
+  --rk-shadow-card: 0 8px 18px rgba(122, 58, 29, 0.1);
+  --rk-shadow-card-hover: 0 10px 24px rgba(60, 20, 10, 0.08);
+  --rk-shadow-lift: 0 14px 28px rgba(122, 58, 29, 0.14);
+  --rk-shadow-tabbar: 0 -8px 24px rgba(110, 51, 13, 0.12);
+  --rk-shadow-toast: 0 10px 30px rgba(30, 12, 10, 0.25);
+  --rk-focus-halo: 0 0 0 3px rgba(160, 54, 31, 0.14);
+  /* Hero shelf art: the deep slab colour */
+  --rk-art-deep: #6b1b21;
+  /* Floating nav pill and hero glass (search, mascot bubble) */
+  --rk-nav-bg: rgba(255, 252, 248, 0.82);
+  --rk-nav-line: rgba(160, 54, 31, 0.14);
+  --rk-nav-btn: rgba(160, 54, 31, 0.06);
+  --rk-hero-glass: rgba(255, 255, 255, 0.72);
+  --rk-hero-line: rgba(160, 54, 31, 0.2);
+  --rk-hero-ink: #3c140a;
+  --rk-hero-muted: #8d6f64;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --rk-page: #1a0d0a;
+  --rk-page-warm: #201510;
+  --rk-surface-card: rgba(255, 255, 255, 0.06);
+  --rk-surface-content: #27140d;
+  --rk-surface-soft: rgba(255, 255, 255, 0.05);
+  --rk-border: rgba(255, 255, 255, 0.14);
+  --rk-border-soft: #4a3225;
+  --rk-border-content: rgba(255, 230, 205, 0.16);
+  --rk-ink: #f3e3d3;
+  --rk-ink-content: #f7e8da;
+  --rk-ink-muted: #b89b8e;
+  --rk-accent: #ffab98;
+  --rk-accent-hover: #ff9d89;
+  --rk-accent-fill: #f28b7d;
+  --rk-on-accent: #3a0d08;
+  --rk-accent-soft: rgba(255, 255, 255, 0.08);
+  --rk-discount-tint: rgba(158, 193, 255, 0.16);
+  --rk-crimson: #ffab98;
+  --rk-wish-red: #ff6a5b;
+  --rk-good: #7fd6a0;
+  --rk-on-good: #10301d;
+  --rk-bad: #ff8a80;
+  --rk-toast-bg: #fff7ec;
+  --rk-toast-ink: #4a140c;
+  --rk-clay: #d97a3e;
+  --rk-tabbar-bg: rgba(26, 13, 10, 0.97);
+  --rk-shadow-card: none;
+  --rk-shadow-card-hover: 0 10px 24px rgba(0, 0, 0, 0.3);
+  --rk-shadow-lift: 0 14px 28px rgba(0, 0, 0, 0.4);
+  --rk-shadow-tabbar: 0 -8px 24px rgba(0, 0, 0, 0.4);
+  --rk-shadow-toast: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --rk-focus-halo: 0 0 0 3px rgba(255, 255, 255, 0.08);
+  --rk-art-deep: #4a1418;
+  --rk-nav-bg: rgba(30, 14, 11, 0.8);
+  --rk-nav-line: rgba(255, 255, 255, 0.1);
+  --rk-nav-btn: rgba(255, 255, 255, 0.08);
+  --rk-hero-glass: rgba(255, 255, 255, 0.14);
+  --rk-hero-line: rgba(255, 255, 255, 0.22);
+  --rk-hero-ink: #f7e8da;
+  --rk-hero-muted: #cdb9ae;
+  color-scheme: dark;
+}

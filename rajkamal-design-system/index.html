@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rajkamal Prakashan Design System</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@300..700&family=Noto+Sans+Devanagari:wght@400;500;600&family=Yatra+One&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components/bundle.css">
+<style>
+
+  
+  .cover { position: relative; width: 960px; height: 288px; overflow: hidden; }
+  .art { position: absolute; top: 0; left: 480px; width: 480px; height: 288px; overflow: hidden; }
+  .art svg { display: block; width: 480px; height: 288px; }
+  .accent { fill: var(--accent); }
+  .deep { fill: var(--footer-bg); }
+  .gold { fill: var(--gold); }
+  .cut { fill: var(--page); }
+  .blk { rx: var(--radius-card); }
+  .spine { rx: var(--radius-sm); }
+  .spine-w { rx: var(--radius-banner); }
+  .words { position: absolute; left: var(--space-28); bottom: var(--space-24); max-width: 440px; }
+  .name { margin: 0; font-size: 80px; line-height: .95; font-weight: 600; letter-spacing: -.01em; color: var(--ink); }
+  .tag { margin: var(--space-12) 0 0 2px; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+
+.doc { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
+header.top { position: sticky; top: 0; z-index: 5; background: var(--page); border-bottom: 1px solid var(--border-soft); }
+header.top .doc { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; padding-block: 12px; }
+header.top a { color: var(--accent); font-size: .85rem; font-weight: 600; text-decoration: none; }
+header.top button { margin-left: auto; }
+.cover { margin: 24px 0; border: 1px solid var(--border-soft); border-radius: 18px; max-width: 100%; }
+h2 { font-size: 1.6rem; margin: 56px 0 12px; color: var(--ink-content); }
+h3 { font-size: 1.15rem; margin: 28px 0 8px; color: var(--ink-content); }
+p, li { line-height: 1.6; max-width: 72ch; }
+code { font-family: var(--font-mono); font-size: .82em; background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; }
+.sws { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.sw { display: flex; gap: 12px; padding: 12px; border: 1px solid var(--border-soft); border-radius: 14px; background: var(--surface-content); }
+.sw .chip { flex: none; display: flex; flex-direction: column; width: 56px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-soft); }
+.sw .chip span { flex: 1; min-height: 32px; }
+.sw .chip span + span { background-color: #1a0d0a; }
+.sw b { display: block; } .sw code { margin-right: 6px; } .sw p { margin: 6px 0 0; font-size: .8rem; color: var(--ink-muted); }
+.ty { padding: 12px 0; border-bottom: 1px solid var(--border-soft); } .ty p { margin: 4px 0 0; font-size: .8rem; color: var(--ink-muted); }
+table { border-collapse: collapse; width: 100%; font-size: .88rem; } td { padding: 8px 10px; border-bottom: 1px solid var(--border-soft); vertical-align: middle; }
+.tw { overflow-x: auto; }
+.bar { display: block; height: 10px; background: var(--accent); border-radius: 3px; }
+.rad { display: block; width: 44px; height: 44px; background: var(--accent-soft); border: 1.5px solid var(--accent); }
+.shd { display: block; width: 60px; height: 40px; background: var(--surface-card); border-radius: 10px; }
+.comp { border-top: 1px solid var(--border-soft); }
+.stage { border: 1px solid var(--border-soft); border-radius: 16px; background: var(--page); margin: 8px 0 12px; overflow-x: auto; }
+.logos { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.logo { margin: 0; padding: 16px; border: 1px solid var(--border-soft); border-radius: 14px; background: #fffdfb; }
+.logo.dk { background: #6b1b21; } .logo img { width: 100%; height: 90px; object-fit: contain; }
+.logo figcaption { font-size: .75rem; margin-top: 8px; color: #7d5e53; } .logo.dk figcaption { color: #f7e3d8; }
+</style>
+</head>
+<body>
+<header class="top"><div class="doc"><a href="#brand">Brand book</a><a href="#colour">Colour</a><a href="#type">Type</a><a href="#space">Spacing</a><a href="#radius">Radius</a><a href="#shadow">Shadow</a><a href="#bp">Breakpoints</a><a href="#components">Components</a><a href="#logos">Logos</a><button class="bk-btn bk-btn--ghost" type="button" id="theme">Dark theme</button></div></header>
+<main class="doc">
+<div style="overflow-x:auto"><div class="cover">
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 480 288" width="480" height="288">
+<!--
+  blocks      accent 152×280 bled off the top (the brand's action colour, largest) · footer-bg 184×216 bled off the right (the deep maroon of the footer) · gold 64×20 once (the offer-banner highlight) — about 30% of 960×288
+  arrangement one tall accent slab and one deep slab with a row of book spines standing on a shared shelf line between them; bottoms on y=264
+  pattern     book spines: "Book covers are the hero of every page" and "Pills, not boxes" — upright pills of radius-sm (20 wide) and radius-banner (28 wide), five on the shelf in accent, footer-bg and gold, three cut out of the accent slab in page
+  scales      corners radius-card on the slabs; spine rx radius-sm / radius-banner (half their width); shelf gaps space-4; text inset space-28 / space-24
+-->
+<rect class="accent blk" x="0" y="-16" width="152" height="280" rx="16"/>
+<rect class="cut spine" x="24" y="152" width="20" height="96" rx="10"/>
+<rect class="cut spine" x="48" y="120" width="20" height="128" rx="10"/>
+<rect class="cut spine-w" x="72" y="176" width="28" height="72" rx="14"/>
+<rect class="accent spine" x="168" y="112" width="20" height="152" rx="10"/>
+<rect class="deep spine-w" x="192" y="80" width="28" height="184" rx="14"/>
+<rect class="gold spine" x="224" y="144" width="20" height="120" rx="10"/>
+<rect class="accent spine" x="248" y="96" width="20" height="168" rx="10"/>
+<rect class="deep spine-w" x="272" y="128" width="28" height="136" rx="14"/>
+<rect class="deep blk" x="312" y="48" width="184" height="216" rx="16"/>
+<rect class="gold spine" x="336" y="72" width="64" height="20" rx="10"/>
+</svg>
+</div>
+<div class="words">
+<h1 class="name">Rajkamal<br>Prakashan</h1>
+<p class="tag">Hindi books, literature and offers. Trusted for 75+ years.</p>
+</div>
+</div></div>
+<section id="brand"><p>Rajkamal Prakashan Samuh is a Hindi publishing house, trusted for 75+ years, selling books, e-books and gift offers online. The site is warm and bookish: cream paper, brick-red ink, rounded pill controls, one sans family that sets both Hindi and English. Book covers are the hero of every page. The UI stays quiet around them.</p>
+<h3>Principles</h3>
+<ul>
+<li><strong>The cover is shown whole.</strong> Never crop a cover or draw on it. Covers sit in a square <code>cover-well</code> with <code>object-fit: contain</code>. Discounts go beside the price, never on the cover.</li>
+<li><strong>One accent does the work.</strong> <code>accent</code> marks every action, price and active state. Do not add a second accent hue for UI. <code>crimson</code>, <code>clay</code> and <code>gold</code> belong to specific places (menus, Kitab Teras, offer banners).</li>
+<li><strong>Pills, not boxes.</strong> Buttons, chips, search fields, tags and toasts all use <code>radius-pill</code>. Cards use <code>radius-card</code> (16px) or <code>radius-panel</code> (18px).</li>
+<li><strong>Borders before shadows.</strong> Cards have a 1px <code>border</code>. In dark theme, shadows go to <code>none</code> and the border carries the edge.</li>
+<li><strong>Nothing shifts.</strong> Counts use tabular figures in a fixed slot, badges keep their space, and controls in one row share one height.</li>
+<li><strong>Phone first for shopping.</strong> Up to 1199px a floating bottom tab bar (Home · Explore · Profile · Wishlist · Cart) replaces the nav links. Filters open as sheets from the bottom.</li>
+</ul>
+<h3>Content fundamentals</h3>
+<ul>
+<li><strong>Two languages, one voice.</strong> Book titles, author names and genre names in Hindi are set in Devanagari (<code>मिट्टी से जुड़ें</code>, <code>हिन्दी दिवस</code>). Interface words are English: "All Books", "Add to cart", "View all →", "Track Your Order". The page <code>lang</code> is <code>hi</code>.</li>
+<li><strong>Romanised titles on cards.</strong> Catalogue cards use the romanised title as listed ("Mitro Marjani", "Path Ke Sathi"), with the author below.</li>
+<li><strong>Title Case for navigation and headings</strong> ("Publish With Us", "Return &amp; Exchange", "Our Family of Imprints"). Sentence case for buttons and messages ("Add to cart", "Clear filters", "Show 24 e-books").</li>
+<li><strong>Uppercase only for small labels</strong>: eyebrows (<code>eyebrow</code>) and genre lines on cards (<code>category</code>), with letter-spacing. Trust strip lines use uppercase too ("FAST DISPATCH", "GENUINE BOOKS").</li>
+<li><strong>Plain, warm, factual.</strong> "Ships in 7 Days · Original · Returns · Free above ₹1,200". Use the middle dot <code>·</code> to join short facts.</li>
+<li><strong>Prices</strong> in rupees with the ₹ sign and no decimals on cards: "₹200", struck "₹250", tag "20% off".</li>
+<li><strong>Arrows as text</strong> for onward links: "View all →", "See the full collection on rajkamalprakashan.com ↗" (↗ means it leaves the site).</li>
+<li><strong>No emoji</strong> in the interface. The footer contact lines are the one legacy exception.</li>
+</ul>
+<h3>Colour</h3>
+<ul>
+<li>Page ground is <code>page</code> (warm white <code>#fffdfb</code>; dark <code>#1a0d0a</code>). The homepage and Kitab Teras pages use <code>page-warm</code>.</li>
+<li>Set body text in <code>ink</code> on <code>page</code> and <code>surface-card</code>. Content pages (About, FAQ, policies, forms) use <code>ink-content</code> for headings and labels, and <code>ink-muted</code> for subtitles and notes.</li>
+<li>Use <code>accent</code> for prices, category lines, links, outline buttons, active chips and focus borders. In dark theme it becomes a light coral <code>#ffab98</code>.</li>
+<li>Filled primary buttons use <code>accent-fill</code> with <code>on-accent</code> text. In dark theme the fill is <code>#f28b7d</code> with dark text <code>#3a0d08</code>. Never put white text on the dark-theme fill.</li>
+<li>Cards: <code>surface-card</code> for books and lists, <code>surface-content</code> for content pages, both with a <code>border</code>/<code>border-content</code> outline.</li>
+<li>Tints: <code>accent-soft</code> for hover and focus halos, <code>discount-tint</code> behind the discount tag.</li>
+<li>Status: <code>good</code> for "Added" and success, <code>bad</code> for errors. Pair each with a word or icon. Do not rely on colour alone.</li>
+<li><code>wish-red</code> is only for the filled heart on a wishlisted book.</li>
+<li>The footer is always <code>footer-bg</code> with <code>footer-ink</code> and <code>gold</code> highlights, in both themes.</li>
+<li>Known gaps, kept as the code has them: <code>border</code> is decorative (1.5:1) and too faint to be the only edge of an input; the struck-through original price at 50% opacity is about 3:1; the input focus halo is faint, so focus depends on the accent border; the dark <code>discount-tint</code> is a blue tint.</li>
+</ul>
+<h3>Typography</h3>
+<ul>
+<li>One family for everything: <strong>Google Sans Flex</strong> (weights 300–700), falling back to <strong>Noto Sans Devanagari</strong> (400, 500, 600) for Hindi. Both load from Google Fonts: <code>https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@300..700&amp;family=Noto+Sans+Devanagari:wght@400;500;600&amp;display=swap</code></li>
+<li><strong>The heaviest weight anywhere is 600.</strong> Headings, <code>strong</code>, <code>b</code>, <code>th</code> and <code>dt</code> are all 600. Body text is 400. Card titles and chips are 500.</li>
+<li>Use the styles in the type scale: <code>page-title</code> once per page, <code>section-title</code> for sections, <code>lead</code> under the title, <code>body</code> for reading, <code>book-title</code>, <code>price</code>, <code>meta</code> and <code>category</code> on cards, <code>button</code> on every button, <code>label</code> on form fields.</li>
+<li>Sizes are in rem off a 16px root. The site uses many in-between sizes (0.72–0.92rem); new work should pick from this scale.</li>
+<li><code>display-hindi</code> (Yatra One) is only the homepage hero headline. <code>quote</code> (Georgia italic) is only author life dates and short quotes.</li>
+<li>Search inputs use 16px so phones do not zoom on focus.</li>
+</ul>
+<h3>Spacing and layout</h3>
+<ul>
+<li>Page column: max <code>container</code> (1224px), side gutter <code>space-28</code> on desktop and <code>space-16</code> on phones.</li>
+<li>Gaps come in small steps: <code>space-6</code>, <code>space-8</code> (most common), <code>space-10</code>, <code>space-12</code>, <code>space-14</code>. Use <code>gap</code> on flex and grid, not margins.</li>
+<li>Card padding: <code>space-12</code> for book cards, <code>space-24</code> for content cards, <code>space-18</code> for form cards.</li>
+<li>Book grids: <code>repeat(auto-fill, minmax(210px, 1fr))</code> with a gap of <code>space-18</code> × <code>space-16</code>. On phones, always 2 columns, gap <code>space-12</code> × <code>space-10</code>.</li>
+<li>Content pages: a 2-column layout with a sticky side panel (switcher and "On this page"). On phones the side panel becomes a sideways chip strip.</li>
+<li>Sticky banners and filter bars sit under the 76px header on desktop. On phones they pin to <code>env(safe-area-inset-top)</code>.</li>
+<li>Breakpoints: <code>bp-phone</code> 720px, <code>bp-tablet</code> 980px, <code>bp-tablet-wide</code> 1199px, <code>bp-desktop</code> 1200px, <code>bp-wide</code> 1280px, <code>bp-shelf</code> 1340px.</li>
+<li>Respect safe areas: fixed bars and toasts add <code>env(safe-area-inset-*)</code>.</li>
+</ul>
+<h3>Shape, depth and states</h3>
+<ul>
+<li>Radii: <code>radius-pill</code> for controls, <code>radius-round</code> for icon buttons, <code>radius-card</code> 16px for book cards, <code>radius-panel</code> 18px for content cards, <code>radius-hero</code> 24px for the page hero, <code>radius-input</code> 12px for form inputs, <code>radius-banner</code> 14px for banners.</li>
+<li>Shadows are warm brown, never grey: <code>shadow-card</code> at rest, <code>shadow-card-hover</code> or <code>shadow-lift</code> on hover. In dark theme they turn neutral black or <code>none</code>.</li>
+<li>Hover: fill with <code>accent-soft</code> (chips, outline buttons), darken to <code>accent-hover</code> (filled buttons), or turn the border accent (content cards).</li>
+<li>Press: buttons scale to 0.97.</li>
+<li>Focus: an accent border plus a 3px <code>focus-halo</code>. Menus and Hindi Pakhwara cards use a 3px <code>crimson</code> outline with a 4px offset.</li>
+<li>Selected chip: <code>accent</code> fill, white label.</li>
+<li>Added to cart: the button turns <code>good</code>, reads "Added" for 1.6s, and the cart icon hops.</li>
+</ul>
+<h3>Motion</h3>
+<ul>
+<li>Most transitions are 0.2s ease (colour, background, border). Transforms use 0.15s. Theme changes cross-fade over 0.3s.</li>
+<li>The nav uses <code>cubic-bezier(0.22, 0.61, 0.36, 1)</code> over 0.6s when it shrinks on scroll.</li>
+<li>Toasts drop in from the top with a small scale (0.96 → 1).</li>
+<li>Every animation has a <code>prefers-reduced-motion: reduce</code> override (49 in the code). Keep that rule for new work.</li>
+</ul>
+<h3>Theme</h3>
+<ul>
+<li>Light is the default (<code>&lt;html data-theme="light"&gt;</code>). Dark is <code>data-theme="dark"</code>, chosen with the sun/moon pill button and saved as <code>localStorage["rk-theme"]</code>.</li>
+<li>Every colour token has both values. Dark is a deep brown, not black: <code>page</code> <code>#1a0d0a</code>, cards are white at 6% over it.</li>
+</ul>
+<h3>Iconography</h3>
+<ul>
+<li>Icons are inline SVG line drawings: <code>fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round</code>, usually 16–18px. They take the text colour of their button.</li>
+<li>Onward arrows inside round buttons are drawn with a CSS mask, not a font glyph, so they sit centred on every phone.</li>
+<li>Social icons (YouTube, Instagram, Facebook, X, LinkedIn, Threads) are drawn SVGs in round cream-outline buttons that fill gold on hover.</li>
+<li>There is no icon font and no emoji in the UI.</li>
+</ul>
+<h3>Logos and imprints</h3>
+<ul>
+<li>The Rajkamal mark and wordmark are single-ink SVGs in <code>logo-red</code> (<code>#CB2323</code>). Use <code>rkp-logo.svg</code> on light grounds and <code>rkp-logo-dark.svg</code> (red emblem, white wordmark) on dark. The desktop header shows the full logo at the top of the page and shrinks to the round emblem (<code>rkp-favicon.svg</code>) on scroll. Tablets keep the full logo.</li>
+<li><code>rkp-logo-text-only-white.svg</code> is for the footer and other red or dark grounds.</li>
+<li>The Imprints group holds the twelve imprint logos (Rajkamal, Radhakrishna, Lokbharti, Sarthak, Funda and others) as PNGs, for the Publications page.</li>
+</ul>
+<h3>Components</h3>
+<p>Each component below has guidelines and a static preview, styled by <code>components/bundle.css</code> with the same class names the site uses (<code>.bk-btn</code>, <code>.hm-card</code>, <code>.au-chip</code>, <code>.fm-field</code>, <code>.cnt-card</code>, <code>.cnt-hero</code>, <code>.rk-toast</code>). The site is plain HTML, CSS and JavaScript, not a React library, so there is no JavaScript bundle. To build a new page, link <code>tokens.css</code> and <code>bundle.css</code> and write the markup shown in each preview.</p></section>
+<h2 id="colour">Colour</h2><p>Left half of each chip is the light theme, right half is dark.</p>
+<div class="sws"><div class="sw"><div class="chip"><span style="background-color:#fffdfb"></span><span style="background-image:linear-gradient(#1a0d0a,#1a0d0a)"></span></div><div><b>page</b><code>#fffdfb</code><code>#1a0d0a</code><p>Page background on every inner page (All Books, authors, product, account, forms). Source: html/body in hp/hp.css, --au-page, --bk-page.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#fbf1e4"></span><span style="background-image:linear-gradient(#201510,#201510)"></span></div><div><b>page-warm</b><code>#fbf1e4</code><code>#201510</code><p>Warmer cream ground used behind the homepage video overlay and the Kitab Teras pages. Source: --cream.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#fff7ec"></span><span style="background-image:linear-gradient(rgba(255, 255, 255, 0.06),rgba(255, 255, 255, 0.06))"></span></div><div><b>surface-card</b><code>#fff7ec</code><code>rgba(255, 255, 255, 0.06)</code><p>Book cards, author cards, list cards and search fields. Source: --au-card, .hm-card.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#fffcf8"></span><span style="background-image:linear-gradient(#27140d,#27140d)"></span></div><div><b>surface-content</b><code>#fffcf8</code><code>#27140d</code><p>Cards on content pages (About, FAQ, policies, forms). Source: --cnt-card.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#fbf3ea"></span><span style="background-image:linear-gradient(rgba(255, 255, 255, 0.05),rgba(255, 255, 255, 0.05))"></span></div><div><b>surface-soft</b><code>#fbf3ea</code><code>rgba(255, 255, 255, 0.05)</code><p>Quiet fill for ghost-button hover, side-nav hover and inset panels on content pages. Source: --cnt-soft.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#efe3d3"></span><span style="background-image:linear-gradient(#efe3d3,#efe3d3)"></span></div><div><b>cover-well</b><code>#efe3d3</code><code>#efe3d3</code><p>Square well behind a book cover so covers of any shape sit whole inside the card. Same in both themes.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#e6cdae"></span><span style="background-image:linear-gradient(rgba(255, 255, 255, 0.14),rgba(255, 255, 255, 0.14))"></span></div><div><b>border</b><code>#e6cdae</code><code>rgba(255, 255, 255, 0.14)</code><p>Card and chip outlines, search field outline. Decorative: 1.5:1 on page, so never the only cue for a control&#x27;s edge. Source: --au-border.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#f2dfcc"></span><span style="background-image:linear-gradient(#4a3225,#4a3225)"></span></div><div><b>border-soft</b><code>#f2dfcc</code><code>#4a3225</code><p>Hairlines: tab bar top edge, banners, menu dividers. Source: --rk-border.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#eddccc"></span><span style="background-image:linear-gradient(rgba(255, 230, 205, 0.16),rgba(255, 230, 205, 0.16))"></span></div><div><b>border-content</b><code>#eddccc</code><code>rgba(255, 230, 205, 0.16)</code><p>Outlines of content cards, form inputs and the page hero. Source: --cnt-border.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#591416"></span><span style="background-image:linear-gradient(#f3e3d3,#f3e3d3)"></span></div><div><b>ink</b><code>#591416</code><code>#f3e3d3</code><p>Body text and headings on page, surface-card and surface-content (13.5:1 light, 15:1 dark). Source: --rk-text / --a-text.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#3c140a"></span><span style="background-image:linear-gradient(#f7e8da,#f7e8da)"></span></div><div><b>ink-content</b><code>#3c140a</code><code>#f7e8da</code><p>Text on content pages (hero titles, section titles, form labels) on surface-content and page. Source: --cnt-text.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#7d5e53"></span><span style="background-image:linear-gradient(#b89b8e,#b89b8e)"></span></div><div><b>ink-muted</b><code>#7d5e53</code><code>#b89b8e</code><p>Secondary text: hero subtitles, notes, checkbox labels, on page and surface-content (5.7:1 light, 6.8:1 dark). Source: --cnt-mute.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#a0361f"></span><span style="background-image:linear-gradient(#ffab98,#ffab98)"></span></div><div><b>accent</b><code>#a0361f</code><code>#ffab98</code><p>The brand&#x27;s action colour, used 170+ times: prices, category labels, links, outline buttons, active chips, focus borders. As text it reads on page and surface-card (6.5:1 light, 9:1 dark). Source: --au-accent, --x-accent, --a-accent.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#8a2a17"></span><span style="background-image:linear-gradient(#ff9d89,#ff9d89)"></span></div><div><b>accent-hover</b><code>#8a2a17</code><code>#ff9d89</code><p>Hover fill of the filled primary button. Source: .bk-btn--buy:hover.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#a0361f"></span><span style="background-image:linear-gradient(#f28b7d,#f28b7d)"></span></div><div><b>accent-fill</b><code>#a0361f</code><code>#f28b7d</code><p>Fill of the primary button (Buy now, Subscribe, form submit). In dark it is a softer coral than the accent text colour. Source: .bk-btn--buy, --cnt-accent.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#ffffff"></span><span style="background-image:linear-gradient(#3a0d08,#3a0d08)"></span></div><div><b>on-accent</b><code>#ffffff</code><code>#3a0d08</code><p>Label on an accent-fill button (6.9:1 light, 7.1:1 dark).</p></div></div><div class="sw"><div class="chip"><span style="background-color:rgba(160, 54, 31, 0.08)"></span><span style="background-image:linear-gradient(rgba(255, 255, 255, 0.08),rgba(255, 255, 255, 0.08))"></span></div><div><b>accent-soft</b><code>rgba(160, 54, 31, 0.08)</code><code>rgba(255, 255, 255, 0.08)</code><p>Hover tint for chips and outline buttons; the search field&#x27;s focus halo. Source: --au-soft.</p></div></div><div class="sw"><div class="chip"><span style="background-color:rgba(160, 54, 31, 0.12)"></span><span style="background-image:linear-gradient(rgba(158, 193, 255, 0.16),rgba(158, 193, 255, 0.16))"></span></div><div><b>discount-tint</b><code>rgba(160, 54, 31, 0.12)</code><code>rgba(158, 193, 255, 0.16)</code><p>Background of the discount tag (&quot;20% off&quot;) behind accent text. The dark value is a cool blue tint, likely left over from an earlier palette; kept as the code has it.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#bc0005"></span><span style="background-image:linear-gradient(#ffab98,#ffab98)"></span></div><div><b>crimson</b><code>#bc0005</code><code>#ffab98</code><p>Accent inside the All Books mega-menu and profile menu, hover on Hindi Pakhwara nav links, and their focus outline. Source: --ab-accent, --pm-accent.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#cb2323"></span><span style="background-image:linear-gradient(#cb2323,#cb2323)"></span></div><div><b>logo-red</b><code>#cb2323</code><code>#cb2323</code><p>The ink of the Rajkamal logo files. Not used for UI.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#e5484d"></span><span style="background-image:linear-gradient(#ff6a5b,#ff6a5b)"></span></div><div><b>wish-red</b><code>#e5484d</code><code>#ff6a5b</code><p>Filled heart on a wishlisted book. An icon colour (3.7:1 on surface-card), not for text. Source: --rk-red.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#2f7a4c"></span><span style="background-image:linear-gradient(#7fd6a0,#7fd6a0)"></span></div><div><b>good</b><code>#2f7a4c</code><code>#7fd6a0</code><p>Success: the &quot;Added&quot; state of Add to cart, in-stock and confirmation messages. Source: --x-good, --a-good.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#ffffff"></span><span style="background-image:linear-gradient(#10301d,#10301d)"></span></div><div><b>on-good</b><code>#ffffff</code><code>#10301d</code><p>Label on a good fill (5.2:1 light, 8.2:1 dark).</p></div></div><div class="sw"><div class="chip"><span style="background-color:#c62828"></span><span style="background-image:linear-gradient(#ff8a80,#ff8a80)"></span></div><div><b>bad</b><code>#c62828</code><code>#ff8a80</code><p>Errors and destructive actions on page and cards (5.5:1 light, 8.3:1 dark). Forms use the near-identical #c0392b. Source: --x-bad, --a-bad.</p></div></div><div class="sw"><div class="chip"><span style="background-color:rgba(30, 12, 10, 0.94)"></span><span style="background-image:linear-gradient(#fff7ec,#fff7ec)"></span></div><div><b>toast-bg</b><code>rgba(30, 12, 10, 0.94)</code><code>#fff7ec</code><p>Toast pill background; inverts against the theme.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#ffffff"></span><span style="background-image:linear-gradient(#4a140c,#4a140c)"></span></div><div><b>toast-ink</b><code>#ffffff</code><code>#4a140c</code><p>Toast text on toast-bg.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#ffd24d"></span><span style="background-image:linear-gradient(#ffd24d,#ffd24d)"></span></div><div><b>toast-icon</b><code>#ffd24d</code><code>#ffd24d</code><p>Round yellow disc behind the toast icon (cart, heart, check); icon drawn in #4a140c on it.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#6b1b21"></span><span style="background-image:linear-gradient(#6b1b21,#6b1b21)"></span></div><div><b>footer-bg</b><code>#6b1b21</code><code>#6b1b21</code><p>Site footer background, both themes.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#f7e3d8"></span><span style="background-image:linear-gradient(#f7e3d8,#f7e3d8)"></span></div><div><b>footer-ink</b><code>#f7e3d8</code><code>#f7e3d8</code><p>Footer text on footer-bg (9.4:1).</p></div></div><div class="sw"><div class="chip"><span style="background-color:#ffe174"></span><span style="background-image:linear-gradient(#ffe174,#ffe174)"></span></div><div><b>gold</b><code>#ffe174</code><code>#ffe174</code><p>Highlight ink on red offer banners and the footer (9:1 on footer-bg). Source: --bn-ink.</p></div></div><div class="sw"><div class="chip"><span style="background-color:#c1692f"></span><span style="background-image:linear-gradient(#d97a3e,#d97a3e)"></span></div><div><b>clay</b><code>#c1692f</code><code>#d97a3e</code><p>Kitab Teras (kt/) palette accent for decorative fills; not for text on page. Source: --clay.</p></div></div><div class="sw"><div class="chip"><span style="background-color:rgba(255, 253, 251, 0.97)"></span><span style="background-image:linear-gradient(rgba(26, 13, 10, 0.97),rgba(26, 13, 10, 0.97))"></span></div><div><b>tabbar-bg</b><code>rgba(255, 253, 251, 0.97)</code><code>rgba(26, 13, 10, 0.97)</code><p>Floating bottom tab bar on phones and tablets (up to 1199px).</p></div></div></div>
+<h2 id="type">Typography</h2><h3>Headings</h3><div class="ty"><div class="page-title">Our Family of Imprints</div><p><b>page-title</b> · 2.6rem / 1.2 / 600 — Page hero title, clamp(1.8rem, 3.5vw, 2.6rem). One per page.</p></div><div class="ty"><div class="section-title">Offices &amp; Presence</div><p><b>section-title</b> · 1.45rem / 1.3 / 600 — Section headings on content pages.</p></div><div class="ty"><div class="card-heading">Head Quarter</div><p><b>card-heading</b> · 1rem / 1.3 / 600 — Headings inside cards and form side panels.</p></div><div class="ty"><div class="eyebrow">COLLECTION</div><p><b>eyebrow</b> · 0.85rem / 1.3 / 600 — Uppercase label above a page title, in accent.</p></div><h3>Text</h3><div class="ty"><div class="lead">Safe, Trusted &amp; Hassle-Free Returns. Help Always at Hand.</div><p><b>lead</b> · 1.05rem / 1.6 / 400 — Hero subtitle, max 68ch, in ink-muted.</p></div><div class="ty"><div class="body">मित्रो हिन्दी कहानी की अभूतपूर्व पात्र है।</div><p><b>body</b> · 1rem / 1.5 / 400 — Running text, book descriptions, policy pages.</p></div><div class="ty"><div class="input">Your full name</div><p><b>input</b> · 0.92rem / 1.4 / 400 — Form inputs and selects. Search fields use 16px so phones do not zoom.</p></div><div class="ty"><div class="meta">Krishna Sobti</div><p><b>meta</b> · 0.8rem / 1.3 / 400 — Author line on book cards (at 75% opacity), notes and small print.</p></div><h3>Interface</h3><div class="ty"><div class="book-title">Mitro Marjani</div><p><b>book-title</b> · 0.95rem / 1.3 / 500 — Book card title, clamped to 2 lines (0.86rem on phones).</p></div><div class="ty"><div class="price">₹200</div><p><b>price</b> · 1.05rem / 1.3 / 600 — Selling price, in accent.</p></div><div class="ty"><div class="button">Add to cart</div><p><b>button</b> · 0.85rem / 1.2 / 600 — All buttons (0.78rem inside book cards, 0.74rem on phones).</p></div><div class="ty"><div class="chip">Poetry 41</div><p><b>chip</b> · 0.86rem / 1.2 / 500 — Filter chips and letter strips.</p></div><div class="ty"><div class="label">Email address</div><p><b>label</b> · 0.82rem / 1.3 / 600 — Form field labels.</p></div><div class="ty"><div class="category">WOMEN&#x27;S NOVEL</div><p><b>category</b> · 0.7rem / 1.2 / 400 — Uppercase genre line on book cards, in accent.</p></div><div class="ty"><div class="tag">20% off</div><p><b>tag</b> · 0.7rem / 1.4 / 600 — Discount tag and small pills.</p></div><h3>Special</h3><div class="ty"><div class="display-hindi">राजकमल प्रकाशन</div><p><b>display-hindi</b> · 4rem / 1.28 / 400 — Homepage hero headline only, clamp(2.4rem, 4.6vw, 4rem).</p></div><div class="ty"><div class="quote">1925 – 2019</div><p><b>quote</b> · 1.04rem / 1.5 / 400 — Author life dates and short quotes on author pages, at 80% opacity.</p></div>
+<h2 id="space">Spacing</h2><div class="tw"><table><tr><td><span class="bar" style="width:2px"></span></td><td><b>space-2</b></td><td><code>2px</code></td><td>Gap between price and struck price; tight icon gaps.</td></tr><tr><td><span class="bar" style="width:4px"></span></td><td><b>space-4</b></td><td><code>4px</code></td><td>Gap between lines inside a book card&#x27;s info block.</td></tr><tr><td><span class="bar" style="width:6px"></span></td><td><b>space-6</b></td><td><code>6px</code></td><td>Gap between Add to cart and the wishlist button; label to input.</td></tr><tr><td><span class="bar" style="width:8px"></span></td><td><b>space-8</b></td><td><code>8px</code></td><td>The most used gap: chip rows, button groups, toolbar items.</td></tr><tr><td><span class="bar" style="width:10px"></span></td><td><b>space-10</b></td><td><code>10px</code></td><td>Toast icon to text; book card padding on phones; grid gap on phones.</td></tr><tr><td><span class="bar" style="width:12px"></span></td><td><b>space-12</b></td><td><code>12px</code></td><td>Book card info padding; card stacks.</td></tr><tr><td><span class="bar" style="width:14px"></span></td><td><b>space-14</b></td><td><code>14px</code></td><td>Form field spacing; side-panel card stacks.</td></tr><tr><td><span class="bar" style="width:16px"></span></td><td><b>space-16</b></td><td><code>16px</code></td><td>Phone side gutter; book grid column gap.</td></tr><tr><td><span class="bar" style="width:18px"></span></td><td><b>space-18</b></td><td><code>18px</code></td><td>Book grid row gap; form card padding.</td></tr><tr><td><span class="bar" style="width:24px"></span></td><td><b>space-24</b></td><td><code>24px</code></td><td>Content card padding.</td></tr><tr><td><span class="bar" style="width:26px"></span></td><td><b>space-26</b></td><td><code>26px</code></td><td>Gap between main columns (forms, Hindi Pakhwara grid).</td></tr><tr><td><span class="bar" style="width:28px"></span></td><td><b>space-28</b></td><td><code>28px</code></td><td>Desktop side gutter of the page column and header.</td></tr><tr><td><span class="bar" style="width:40px"></span></td><td><b>space-40</b></td><td><code>40px</code></td><td>Page hero top padding.</td></tr><tr><td><span class="bar" style="width:72px"></span></td><td><b>space-72</b></td><td><code>72px</code></td><td>Space above the footer at the end of a page.</td></tr><tr><td></td><td><b>container</b></td><td><code>1224px</code></td><td>Max width of the page column and the nav pill.</td></tr><tr><td></td><td><b>book-card-min</b></td><td><code>210px</code></td><td>Minimum book card width in auto-fill grids; phones use 2 columns.</td></tr></table></div>
+<h2 id="radius">Radius</h2><div class="tw"><table><tr><td><span class="rad" style="border-radius:999px"></span></td><td><b>radius-pill</b></td><td><code>999px</code></td><td>Buttons, chips, search fields, tags, toasts. The site&#x27;s default shape (109 uses).</td></tr><tr><td><span class="rad" style="border-radius:50%"></span></td><td><b>radius-round</b></td><td><code>50%</code></td><td>Icon buttons, wishlist heart, toast icon, footer social buttons.</td></tr><tr><td><span class="rad" style="border-radius:24px"></span></td><td><b>radius-hero</b></td><td><code>24px</code></td><td>Page hero panel.</td></tr><tr><td><span class="rad" style="border-radius:18px"></span></td><td><b>radius-panel</b></td><td><code>18px</code></td><td>Content cards and form cards.</td></tr><tr><td><span class="rad" style="border-radius:16px"></span></td><td><b>radius-card</b></td><td><code>16px</code></td><td>Book cards and the product offers box.</td></tr><tr><td><span class="rad" style="border-radius:14px"></span></td><td><b>radius-banner</b></td><td><code>14px</code></td><td>Banners, newsletter panel, home tiles.</td></tr><tr><td><span class="rad" style="border-radius:12px"></span></td><td><b>radius-input</b></td><td><code>12px</code></td><td>Form inputs, selects, textareas.</td></tr><tr><td><span class="rad" style="border-radius:10px"></span></td><td><b>radius-sm</b></td><td><code>10px</code></td><td>Small inset panels and menu items.</td></tr><tr><td><span class="rad" style="border-radius:4px"></span></td><td><b>radius-xs</b></td><td><code>4px</code></td><td>Thumb tracks and tiny marks.</td></tr></table></div>
+<h2 id="shadow">Shadow</h2><div class="tw"><table><tr><td><span class="shd" style="box-shadow:var(--shadow-card)"></span></td><td><b>shadow-card</b></td><td><code>0 8px 18px rgba(122, 58, 29, 0.1)</code></td><td>Resting book card. Dark theme drops it and relies on the border.</td></tr><tr><td><span class="shd" style="box-shadow:var(--shadow-card-hover)"></span></td><td><b>shadow-card-hover</b></td><td><code>0 10px 24px rgba(60, 20, 10, 0.08)</code></td><td>Content card on hover, with the border turning accent.</td></tr><tr><td><span class="shd" style="box-shadow:var(--shadow-lift)"></span></td><td><b>shadow-lift</b></td><td><code>0 14px 28px rgba(122, 58, 29, 0.14)</code></td><td>Cards that rise on hover (home tiles, imprint cards).</td></tr><tr><td><span class="shd" style="box-shadow:var(--shadow-tabbar)"></span></td><td><b>shadow-tabbar</b></td><td><code>0 -8px 24px rgba(110, 51, 13, 0.12)</code></td><td>Floating bottom tab bar.</td></tr><tr><td><span class="shd" style="box-shadow:var(--focus-halo)"></span></td><td><b>focus-halo</b></td><td><code>0 0 0 3px rgba(160, 54, 31, 0.14)</code></td><td>Focus halo on inputs, paired with an accent border. The halo alone is about 1.3:1, so the accent border is what makes focus visible.</td></tr></table></div>
+<h2 id="bp">Breakpoints</h2><div class="tw"><table><tr><td></td><td><b>bp-small</b></td><td><code>360px</code></td><td>Very small phones: labels drop from compact menus.</td></tr><tr><td></td><td><b>bp-phone</b></td><td><code>720px</code></td><td>Phone layout at and below this width (91 rules). Two-column book grid, bottom tab bar, sheets.</td></tr><tr><td></td><td><b>bp-tablet</b></td><td><code>980px</code></td><td>Tablet layout up to here; 981px and up gets side panels.</td></tr><tr><td></td><td><b>bp-tablet-wide</b></td><td><code>1199px</code></td><td>Up to here the floating bottom tab bar replaces the desktop nav links.</td></tr><tr><td></td><td><b>bp-desktop</b></td><td><code>1200px</code></td><td>Full desktop nav pill starts.</td></tr><tr><td></td><td><b>bp-wide</b></td><td><code>1280px</code></td><td>Wider nav gaps; All Books format row appears.</td></tr><tr><td></td><td><b>bp-shelf</b></td><td><code>1340px</code></td><td>Home shelves show exactly five cards edge to edge with the nav pill.</td></tr></table></div>
+<h2 id="components">Components</h2><section class="comp" id="c-BookCard"><h3>BookCard</h3><div class="stage"><div class="bk-grid">
+  <article class="hm-card">
+    <a class="hm-cover" href="#"><img src="assets/Samples/mitro-marjani.jpg" alt="Mitro Marjani cover"></a>
+    <div class="hm-info">
+      <p class="hm-cat">Women's Novel</p>
+      <h3 class="hm-name"><a href="#">Mitro Marjani</a></h3>
+      <p class="hm-author">Krishna Sobti</p>
+      <div class="hm-price"><strong>₹200</strong><s>₹250</s><span class="hm-off">20% off</span></div>
+      <div class="hm-actions"><button class="bk-btn bk-btn--cart" type="button"><svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3.5h2.6l2.4 11.2h11.3l2-8H6.3"/></svg> Add to cart</button><button class="bk-btn bk-btn--wish" type="button" aria-label="Add to wishlist"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-9.3-9.4C1.4 7.6 3.7 4 7.2 4c2 0 3.6 1.1 4.8 2.8C13.2 5.1 14.8 4 16.8 4c3.5 0 5.8 3.6 4.5 7.1-1.8 4.8-9.3 9.4-9.3 9.4z"/></svg></button></div>
+    </div>
+  </article>
+  <article class="hm-card">
+    <a class="hm-cover" href="#"><img src="assets/Samples/path-ke-sathi.jpg" alt="Path Ke Sathi cover"></a>
+    <div class="hm-info">
+      <p class="hm-cat">Memoirs</p>
+      <h3 class="hm-name"><a href="#">Path Ke Sathi</a></h3>
+      <p class="hm-author">Mahadevi Verma</p>
+      <div class="hm-price"><strong>₹179</strong><s>₹199</s><span class="hm-off">10% off</span></div>
+      <div class="hm-actions"><button class="bk-btn bk-btn--cart is-added" type="button"><svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3.5h2.6l2.4 11.2h11.3l2-8H6.3"/></svg> Added</button><button class="bk-btn bk-btn--wish is-on" type="button" aria-label="Remove from wishlist"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-9.3-9.4C1.4 7.6 3.7 4 7.2 4c2 0 3.6 1.1 4.8 2.8C13.2 5.1 14.8 4 16.8 4c3.5 0 5.8 3.6 4.5 7.1-1.8 4.8-9.3 9.4-9.3 9.4z"/></svg></button></div>
+    </div>
+  </article>
+  <article class="hm-card">
+    <a class="hm-cover no-img" href="#"><span class="hm-cover__title">Pachpan Khambhe Lal Deewaren</span></a>
+    <div class="hm-info">
+      <p class="hm-cat">Women's Novel</p>
+      <h3 class="hm-name"><a href="#">Pachpan Khambhe Lal Deewaren</a></h3>
+      <p class="hm-author">Usha Priyamvada</p>
+      <div class="hm-price"><strong>₹200</strong><s>₹250</s><span class="hm-off">20% off</span></div>
+      <div class="hm-actions"><span class="hm-oos">Out of stock</span></div>
+    </div>
+  </article>
+</div></div><p>The one book card used everywhere a book appears: home shelves, All Books, collections, author and imprint pages, related books and offers.</p>
+<p><strong>Anatomy, top to bottom:</strong> square cover in <code>cover-well</code>, genre line (<code>category</code>, uppercase, <code>accent</code>), title (<code>book-title</code>, 2 lines max), author (<code>meta</code>, 75% opacity), price row (<code>price</code> in <code>accent</code>, struck original at 50%, discount Tag), then actions (Add to cart + wishlist heart).</p>
+<p><strong>The consumer provides</strong> the cover image URL, romanised title, author, genre, selling price, original price, discount percent, the book page link and stock state. On the site the markup comes from <code>RKBookCard</code> in <code>kt/book-card.js</code>.</p>
+<p><strong>Rules</strong></p>
+<ul>
+<li>Show the cover whole (<code>object-fit: contain</code>) and draw nothing on it. The discount sits beside the price.</li>
+<li>No cover image: <code>.hm-cover.no-img</code> shows the title in white on a warm brown block instead of a broken image.</li>
+<li>Out of stock: replace the actions with the <code>.hm-oos</code> pill ("Out of stock").</li>
+<li>Every card in a row has the same height: title fixed at 2 lines, author and genre at 1 line with ellipsis.</li>
+<li>Grid: <code>repeat(auto-fill, minmax(210px, 1fr))</code>. On phones, always 2 columns, title 0.86rem, discount tag on its own line.</li>
+<li><code>radius-card</code> 16px, 1px <code>border</code>, <code>shadow-card</code> (none in dark).</li>
+</ul></section><section class="comp" id="c-Button"><h3>Button</h3><div class="stage"><div class="ds-col">
+  <div class="ds-row" style="padding:0">
+    <button class="bk-btn bk-btn--buy" type="button">Buy now</button>
+    <button class="bk-btn bk-btn--cart" type="button"><svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3.5h2.6l2.4 11.2h11.3l2-8H6.3"/></svg> Add to cart</button>
+    <button class="bk-btn bk-btn--ghost" type="button">Clear filters</button>
+  </div>
+  <div class="ds-row" style="padding:0">
+    <button class="bk-btn bk-btn--cart is-added" type="button"><svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3.5h2.6l2.4 11.2h11.3l2-8H6.3"/></svg> Added</button>
+    <button class="bk-btn bk-btn--wish" type="button" aria-label="Add to wishlist"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-9.3-9.4C1.4 7.6 3.7 4 7.2 4c2 0 3.6 1.1 4.8 2.8C13.2 5.1 14.8 4 16.8 4c3.5 0 5.8 3.6 4.5 7.1-1.8 4.8-9.3 9.4-9.3 9.4z"/></svg></button>
+    <button class="bk-btn bk-btn--wish is-on" type="button" aria-label="Remove from wishlist"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-9.3-9.4C1.4 7.6 3.7 4 7.2 4c2 0 3.6 1.1 4.8 2.8C13.2 5.1 14.8 4 16.8 4c3.5 0 5.8 3.6 4.5 7.1-1.8 4.8-9.3 9.4-9.3 9.4z"/></svg></button>
+  </div>
+</div></div><p>Pill-shaped buttons for every action on the site: Add to cart, Buy now, Subscribe, form submits and the wishlist heart.</p>
+<p><strong>Variants</strong> (class names as on the site):</p>
+<ul>
+<li><code>.bk-btn--buy</code>: filled primary. <code>accent-fill</code> with <code>on-accent</code> text, <code>accent-hover</code> on hover. One per view: Buy now, Subscribe, Send.</li>
+<li><code>.bk-btn--cart</code>: outline in <code>accent</code>, <code>accent-soft</code> on hover. Add to cart and secondary actions. Carries the cart icon.</li>
+<li><code>.bk-btn--ghost</code>: neutral outline (<code>.cnt-btn--ghost</code> on content pages). Turns accent on hover.</li>
+<li><code>.bk-btn--wish</code>: round 38px icon button (34px inside cards) with a heart. <code>.is-on</code> fills the heart in <code>wish-red</code>.</li>
+<li><code>.is-added</code>: Add to cart turns <code>good</code> and reads "Added" for 1.6s after a tap, with a toast.</li>
+</ul>
+<p><strong>The consumer provides</strong> a <code>&lt;button&gt;</code> (or <code>&lt;a&gt;</code> for navigation), the label in sentence case, and an <code>aria-label</code> for icon buttons.</p>
+<p><strong>Rules</strong></p>
+<ul>
+<li>Always <code>radius-pill</code>. Label in the <code>button</code> style (0.85rem / 600; 0.78rem inside book cards).</li>
+<li>Buttons press to <code>scale(0.97)</code>.</li>
+<li>Book cards have no Buy now: one row of Add to cart plus the wishlist heart.</li>
+<li>In dark theme the filled button is coral <code>#f28b7d</code> with dark text. Never put white text on it.</li>
+</ul></section><section class="comp" id="c-Chip"><h3>Chip</h3><div class="stage"><div class="ds-col">
+  <div class="au-chips">
+    <button class="au-chip" type="button" aria-pressed="true">All <i>427</i></button>
+    <button class="au-chip" type="button" aria-pressed="false">Novel <i>58</i></button>
+    <button class="au-chip" type="button" aria-pressed="false">Poetry <i>41</i></button>
+    <button class="au-chip" type="button" aria-pressed="false">Memoirs <i>17</i></button>
+  </div>
+  <div class="au-chips">
+    <button class="au-chip au-chip--sm" type="button" aria-pressed="false">अ</button>
+    <button class="au-chip au-chip--sm" type="button" aria-pressed="true">आ</button>
+    <button class="au-chip au-chip--sm" type="button" aria-pressed="false">इ</button>
+    <button class="au-chip au-chip--sm" type="button" aria-pressed="false">A</button>
+    <button class="au-chip au-chip--sm" type="button" aria-pressed="false">B</button>
+  </div>
+</div></div><p>A pill toggle for filtering lists: genres, author letters (अ आ इ / A B C), order status, the policy switcher on phones.</p>
+<p><strong>The consumer provides</strong> a <code>&lt;button&gt;</code> with the label, an optional count in an <code>&lt;i&gt;</code>, and <code>aria-pressed</code> for the selected state.</p>
+<p><strong>Rules</strong></p>
+<ul>
+<li><code>chip</code> style (0.86rem / 500), 1px <code>border</code>, <code>radius-pill</code>, 8px × 14px padding. <code>.au-chip--sm</code> is 6px × 12px at 0.8rem.</li>
+<li>Hover fills with <code>accent-soft</code>. Selected (<code>aria-pressed="true"</code>) fills with <code>accent</code> and <code>on-accent</code> text.</li>
+<li>Counts use tabular figures in a 2-character slot so chips keep their width when numbers change.</li>
+<li>Long rows scroll sideways inside a strip (<code>kt/strip.js</code>) with a thin position indicator, edge to edge on phones.</li>
+</ul></section><section class="comp" id="c-ContentCard"><h3>ContentCard</h3><div class="stage"><div class="ds-row" style="align-items:stretch">
+  <div class="cnt-card" style="flex:1 1 240px"><h3>Head Quarter</h3><p>New Delhi<br>011 4263 8228<br>info@rajkamalprakashan.com</p></div>
+  <div class="cnt-card" style="flex:1 1 240px"><h3>Branch Office</h3><p>Patna · Prayagraj · Mumbai</p></div>
+</div></div><p>A bordered panel for content pages: office addresses, FAQ groups, policy blocks and form side panels.</p>
+<p><strong>The consumer provides</strong> a heading (<code>card-heading</code>) and body text or links.</p>
+<p><strong>Rules</strong></p>
+<ul>
+<li><code>surface-content</code> fill, 1px <code>border-content</code>, <code>radius-panel</code> 18px, <code>space-24</code> padding (<code>space-18</code> for form side cards).</li>
+<li>Hover (only when the whole card is a link): the border turns <code>accent</code> and <code>shadow-card-hover</code> appears.</li>
+<li>Heading in <code>ink-content</code>, body in <code>ink-muted</code>.</li>
+</ul></section><section class="comp" id="c-FormField"><h3>FormField</h3><div class="stage"><div class="ds-col" style="max-width:380px">
+  <div class="fm-field"><label for="n">Full name</label><input id="n" value="Anuradha Beniwal"></div>
+  <div class="fm-field is-focus"><label for="e">Email address <i>(optional)</i></label><input id="e" placeholder="you@example.com"></div>
+  <div class="fm-field is-bad"><label for="p">Mobile number</label><input id="p" value="98102"><span class="fm-err">Enter a 10-digit mobile number</span></div>
+  <div class="fm-check"><input type="checkbox" id="c" checked><label for="c">I agree to the Terms &amp; Conditions.</label></div>
+</div></div><p>A labelled input, select or textarea for the site's forms: Contact, Publish With Us, Work With Us, Report an Issue, sign in and checkout.</p>
+<p><strong>The consumer provides</strong> the label text (an optional hint in an <code>&lt;i&gt;</code>), the control, and an <code>.fm-err</code> message. Validation rules come from <code>kt/forms.js</code>; add <code>data-rule</code> to unusual fields.</p>
+<p><strong>Rules</strong></p>
+<ul>
+<li>Label in <code>label</code> style (0.82rem / 600, <code>ink-content</code>), 6px above the control.</li>
+<li>Control: <code>radius-input</code> 12px, 11px × 13px padding, 1px <code>border-content</code>, <code>page</code> fill, 0.92rem text.</li>
+<li>Focus: <code>accent</code> border plus <code>focus-halo</code>.</li>
+<li>Error: add <code>.is-bad</code> to the field. The border and message turn <code>bad</code>, and the message says how to fix it ("Enter a 10-digit mobile number").</li>
+<li>Checkbox (<code>.fm-check</code>): 18px box in <code>accent</code>, label in <code>ink-muted</code>.</li>
+<li>Selects use a drawn chevron, not the browser arrow.</li>
+</ul></section><section class="comp" id="c-PageHero"><h3>PageHero</h3><div class="stage"><div class="ds-col">
+  <section class="cnt-hero">
+    <p class="cnt-hero__eyebrow">Publications</p>
+    <h1 class="cnt-hero__title">Our Family of Imprints</h1>
+    <p class="cnt-hero__sub">Rajkamal Prakashan, Radhakrishna Prakashan, Lokbharti Prakashan, Rajkamal Urdu and more.</p>
+  </section>
+</div></div><p>The opening panel of every content page: eyebrow, page title and a one-line subtitle.</p>
+<p><strong>The consumer provides</strong> the eyebrow word (optional), the title and the subtitle.</p>
+<p><strong>Rules</strong></p>
+<ul>
+<li>One per page, right under the breadcrumb.</li>
+<li>Eyebrow: <code>eyebrow</code> style, uppercase, <code>accent</code>. Title: <code>page-title</code> at <code>clamp(1.8rem, 3.5vw, 2.6rem)</code> in <code>ink-content</code>. Subtitle: <code>lead</code> in <code>ink-muted</code>, max 68ch.</li>
+<li>Panel: <code>radius-hero</code> 24px, 1px <code>border-content</code>, 40px × 36px padding. On the site the fill is a soft diagonal wash from <code>rgba(160, 54, 31, 0.08)</code> to <code>rgba(245, 232, 219, 0.45)</code>; this preview uses the flat <code>surface-soft</code> tint.</li>
+<li>Latin text in the title uses Google Sans Flex at 600, never 700.</li>
+</ul></section><section class="comp" id="c-SearchField"><h3>SearchField</h3><div class="stage"><div class="ds-row">
+  <label class="au-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input type="search" placeholder="Search by name" aria-label="Search authors"></label>
+</div></div><p>A pill search box for lists (Authors, E-Books, the All Books filter bar) with a leading magnifier icon.</p>
+<p><strong>The consumer provides</strong> the <code>&lt;input type="search"&gt;</code> with a placeholder and an accessible label, and the filtering logic.</p>
+<p><strong>Rules</strong></p>
+<ul>
+<li>46px tall (44px and full width on phones), <code>radius-pill</code>, <code>surface-card</code> fill, 1px <code>border</code>.</li>
+<li>Focus: border turns <code>accent</code> with a 3px <code>accent-soft</code> halo.</li>
+<li>Input text is 16px so phones do not zoom on focus. Placeholder at 50% opacity.</li>
+</ul></section><section class="comp" id="c-Tag"><h3>Tag</h3><div class="stage"><div class="ds-row">
+  <div class="hm-price"><strong>₹319</strong><s>₹399</s><span class="hm-off">20% off</span></div>
+  <span class="hm-off">10% off</span>
+  <span class="hm-off">30% OFF</span>
+</div></div><p>A small pill for a discount beside a price ("20% off"), in <code>accent</code> on <code>discount-tint</code>.</p>
+<p><strong>The consumer provides</strong> the short text: a percentage or one or two words.</p>
+<p><strong>Rules</strong></p>
+<ul>
+<li><code>tag</code> style: 0.7rem / 600, <code>radius-pill</code>, 2px × 8px padding, never wraps.</li>
+<li>Sits next to the price, never on a book cover.</li>
+<li>On phones it moves to its own line under the price so every card keeps the same height.</li>
+</ul></section><section class="comp" id="c-Toast"><h3>Toast</h3><div class="stage"><div class="ds-col" style="align-items:flex-start">
+  <div class="rk-toast" role="status"><span class="rk-toast__ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3.5h2.6l2.4 11.2h11.3l2-8H6.3"/><path d="m10 9 2 2 4-4"/></svg></span>Added to cart</div>
+  <div class="rk-toast" role="status"><span class="rk-toast__ic"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-9.3-9.4C1.4 7.6 3.7 4 7.2 4c2 0 3.6 1.1 4.8 2.8C13.2 5.1 14.8 4 16.8 4c3.5 0 5.8 3.6 4.5 7.1-1.8 4.8-9.3 9.4-9.3 9.4z"/></svg></span>Added to wishlist</div>
+</div></div><p>A short confirmation that drops in at the top of the screen after an action: added to cart, saved to wishlist.</p>
+<p><strong>The consumer provides</strong> the message and the icon (cart with a tick, heart, or check). On the site, call <code>toast()</code> from <code>kt/mobile-nav.js</code>.</p>
+<p><strong>Rules</strong></p>
+<ul>
+<li>Pill on <code>toast-bg</code> with <code>toast-ink</code> text (it inverts against the theme), 0.88rem / 500.</li>
+<li>Icon in a 34px yellow <code>toast-icon</code> disc.</li>
+<li>Appears 92px from the top (below the header), drops in with a slight scale, and leaves after about 2s.</li>
+<li>One line that names what happened: "Added to cart".</li>
+</ul></section>
+<h2 id="logos">Logos</h2><div class="logos"><figure class="logo dk"><img src="assets/Logos/rkp-favicon-dark.svg" alt=""><figcaption>rkp-favicon-dark.svg</figcaption></figure><figure class="logo"><img src="assets/Logos/rkp-favicon.svg" alt=""><figcaption>rkp-favicon.svg</figcaption></figure><figure class="logo dk"><img src="assets/Logos/rkp-logo-dark.svg" alt=""><figcaption>rkp-logo-dark.svg</figcaption></figure><figure class="logo dk"><img src="assets/Logos/rkp-logo-text-only-white.svg" alt=""><figcaption>rkp-logo-text-only-white.svg</figcaption></figure><figure class="logo"><img src="assets/Logos/rkp-logo-text-only.svg" alt=""><figcaption>rkp-logo-text-only.svg</figcaption></figure><figure class="logo"><img src="assets/Logos/rkp-logo.svg" alt=""><figcaption>rkp-logo.svg</figcaption></figure></div>
+<h3>Imprints</h3><div class="logos"><figure class="logo"><img src="assets/Imprints/akshar-prakashan.png" alt=""><figcaption>akshar-prakashan.png</figcaption></figure><figure class="logo"><img src="assets/Imprints/banyan-tree-books.png" alt=""><figcaption>banyan-tree-books.png</figcaption></figure><figure class="logo"><img src="assets/Imprints/funda.png" alt=""><figcaption>funda.png</figcaption></figure><figure class="logo"><img src="assets/Imprints/hans-prakashan.png" alt=""><figcaption>hans-prakashan.png</figcaption></figure><figure class="logo"><img src="assets/Imprints/lokbharti-prakashan.png" alt=""><figcaption>lokbharti-prakashan.png</figcaption></figure><figure class="logo"><img src="assets/Imprints/purvodaya.png" alt=""><figcaption>purvodaya.png</figcaption></figure><figure class="logo"><img src="assets/Imprints/radhakrishna-prakashan.png" alt=""><figcaption>radhakrishna-prakashan.png</figcaption></figure><figure class="logo"><img src="assets/Imprints/rajkamal-prakashan.png" alt=""><figcaption>rajkamal-prakashan.png</figcaption></figure><figure class="logo"><img src="assets/Imprints/remadhav.png" alt=""><figcaption>remadhav.png</figcaption></figure><figure class="logo"><img src="assets/Imprints/sahitya-bhawan.png" alt=""><figcaption>sahitya-bhawan.png</figcaption></figure><figure class="logo"><img src="assets/Imprints/saransh.png" alt=""><figcaption>saransh.png</figcaption></figure><figure class="logo"><img src="assets/Imprints/sarthak.png" alt=""><figcaption>sarthak.png</figcaption></figure></div>
+</main>
+<script>
+document.getElementById('theme').addEventListener('click', function () {
+  var r = document.documentElement, d = r.getAttribute('data-theme') === 'dark';
+  r.setAttribute('data-theme', d ? 'light' : 'dark'); this.textContent = d ? 'Dark theme' : 'Light theme';
+});
+</script>
+</body>
+</html>

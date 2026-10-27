@@ -1,26 +1,233 @@
 @import "tailwindcss";
+@import "../styles/tokens.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* dark: utilities follow <html data-theme="dark">, not the OS setting */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* ---------- Colour (from tokens.css, so they switch with the theme) ---------- */
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-white: #ffffff;
+  --color-page: var(--rk-page);
+  --color-page-warm: var(--rk-page-warm);
+  --color-surface-card: var(--rk-surface-card);
+  --color-surface-content: var(--rk-surface-content);
+  --color-surface-soft: var(--rk-surface-soft);
+  --color-cover-well: var(--rk-cover-well);
+  --color-border: var(--rk-border);
+  --color-border-soft: var(--rk-border-soft);
+  --color-border-content: var(--rk-border-content);
+  --color-ink: var(--rk-ink);
+  --color-ink-content: var(--rk-ink-content);
+  --color-ink-muted: var(--rk-ink-muted);
+  --color-accent: var(--rk-accent);
+  --color-accent-hover: var(--rk-accent-hover);
+  --color-accent-fill: var(--rk-accent-fill);
+  --color-on-accent: var(--rk-on-accent);
+  --color-accent-soft: var(--rk-accent-soft);
+  --color-discount-tint: var(--rk-discount-tint);
+  --color-crimson: var(--rk-crimson);
+  --color-logo-red: var(--rk-logo-red);
+  --color-wish-red: var(--rk-wish-red);
+  --color-good: var(--rk-good);
+  --color-on-good: var(--rk-on-good);
+  --color-bad: var(--rk-bad);
+  --color-toast-bg: var(--rk-toast-bg);
+  --color-toast-ink: var(--rk-toast-ink);
+  --color-toast-icon: var(--rk-toast-icon);
+  --color-footer-bg: var(--rk-footer-bg);
+  --color-footer-ink: var(--rk-footer-ink);
+  --color-gold: var(--rk-gold);
+  --color-clay: var(--rk-clay);
+  --color-tabbar-bg: var(--rk-tabbar-bg);
+  --color-art-deep: var(--rk-art-deep);
+  --color-nav-bg: var(--rk-nav-bg);
+  --color-nav-line: var(--rk-nav-line);
+  --color-nav-btn: var(--rk-nav-btn);
+  --color-hero-glass: var(--rk-hero-glass);
+  --color-hero-line: var(--rk-hero-line);
+  --color-hero-ink: var(--rk-hero-ink);
+  --color-hero-muted: var(--rk-hero-muted);
+  /* Hero slabs stay festival red in both themes */
+  --color-slab: #6e1414;
+  --color-slab-face: #9c1717;
+  /* Imprint logos always sit on a light card, in both themes */
+  --color-imprint-card: #fffcf8;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* ---------- Shadow ---------- */
+  --shadow-card: var(--rk-shadow-card);
+  --shadow-card-hover: var(--rk-shadow-card-hover);
+  --shadow-lift: var(--rk-shadow-lift);
+  --shadow-tabbar: var(--rk-shadow-tabbar);
+  --shadow-toast: var(--rk-shadow-toast);
+  --shadow-focus: var(--rk-focus-halo);
+
+  /* ---------- Type: one family (Google Sans Flex + Devanagari fallback) ---------- */
+  --font-sans: var(--font-google-sans), var(--font-devanagari), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-yatra), var(--font-devanagari), sans-serif;
+  --font-serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+
+  /* Heaviest weight anywhere is 600 */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  /* Type scale from the design system */
+  --text-page-title: 2.6rem;
+  --text-page-title--line-height: 1.2;
+  --text-page-title--font-weight: 600;
+  --text-section-title: 1.45rem;
+  --text-section-title--line-height: 1.3;
+  --text-section-title--font-weight: 600;
+  --text-card-heading: 1rem;
+  --text-card-heading--line-height: 1.3;
+  --text-card-heading--font-weight: 600;
+  --text-eyebrow: 0.85rem;
+  --text-eyebrow--line-height: 1.3;
+  --text-eyebrow--font-weight: 600;
+  --text-eyebrow--letter-spacing: 0.08em;
+  --text-lead: 1.05rem;
+  --text-lead--line-height: 1.6;
+  --text-body: 1rem;
+  --text-body--line-height: 1.5;
+  --text-input: 0.92rem;
+  --text-input--line-height: 1.4;
+  --text-meta: 0.8rem;
+  --text-meta--line-height: 1.3;
+  --text-book-title: 0.95rem;
+  --text-book-title--line-height: 1.3;
+  --text-book-title--font-weight: 500;
+  --text-price: 1.05rem;
+  --text-price--line-height: 1.3;
+  --text-price--font-weight: 600;
+  --text-button: 0.85rem;
+  --text-button--line-height: 1.2;
+  --text-button--font-weight: 600;
+  --text-chip: 0.86rem;
+  --text-chip--line-height: 1.2;
+  --text-chip--font-weight: 500;
+  --text-label: 0.82rem;
+  --text-label--line-height: 1.3;
+  --text-label--font-weight: 600;
+  --text-category: 0.7rem;
+  --text-category--line-height: 1.2;
+  --text-category--letter-spacing: 0.05em;
+  --text-tag: 0.7rem;
+  --text-tag--line-height: 1.4;
+  --text-tag--font-weight: 600;
+  --text-display-hindi: 4rem;
+  --text-display-hindi--line-height: 1.28;
+  --text-quote: 1.04rem;
+  --text-quote--line-height: 1.5;
+
+  /* ---------- Shape ---------- */
+  --radius-pill: 999px;
+  --radius-hero: 24px;
+  --radius-panel: 18px;
+  --radius-card: 16px;
+  --radius-banner: 14px;
+  --radius-input: 12px;
+  --radius-sm: 10px;
+  --radius-xs: 4px;
+
+  /* ---------- Layout ---------- */
+  --container-page: 1224px;
+
+  /* Breakpoints matched to the design system: phone ≤720, tablet ≤980, tablet-wide ≤1199 */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 22.5rem;     /* 360px */
+  --breakpoint-md: 45.0625rem;  /* 721px  · above phone */
+  --breakpoint-lg: 61.3125rem;  /* 981px  · above tablet */
+  --breakpoint-xl: 75rem;       /* 1200px · desktop */
+  --breakpoint-2xl: 80rem;      /* 1280px · wide */
+
+  /* Motion */
+  --ease-nav: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --animate-rise: rise 0.7s var(--ease-nav) both;
+  --animate-drop: drop 0.25s ease both;
+  --animate-toast: drop 0.25s ease both, toast-out 0.3s ease 2.8s forwards;
+  --animate-marquee: marquee 40s linear infinite;
+
+  --animate-float: float 5s ease-in-out infinite;
+
+  @keyframes float {
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes toast-out {
+    to { opacity: 0; transform: translateY(-12px) scale(0.96); visibility: hidden; }
+  }
+
+  @keyframes rise {
+    from { transform: scaleY(0.2); opacity: 0; }
+    to { transform: none; opacity: 1; }
+  }
+  @keyframes drop {
+    from { opacity: 0; transform: translateY(-12px) scale(0.96); }
+    to { opacity: 1; transform: none; }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Page column: max 1224px, 28px gutter on desktop, 16px on phones */
+@utility wrap {
+  width: 100%;
+  max-width: var(--container-page);
+  margin-inline: auto;
+  padding-inline: 16px;
+  @variant md {
+    padding-inline: 28px;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+@layer base {
+  html {
+    scroll-padding-top: 76px;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+  body {
+    background: var(--color-page);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    body { transition: background-color 0.3s ease, color 0.3s ease; }
+  }
+  h1, h2, h3, h4, strong, b, th, dt { font-weight: 600; }
+  :focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  ::selection { background: var(--color-discount-tint); }
+}
+
+/* Every animation has a reduced-motion override */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Typewriter cursor in Kitab Dost's speech bubble (Typewriter.tsx) */
+@keyframes caret {
+  50% { opacity: 0; }
 }

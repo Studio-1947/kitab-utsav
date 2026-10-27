@@ -1,0 +1,54 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Rajkamal Prakashan</title>
+<style>
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--page); color: var(--ink); font-family: var(--font-sans); overflow: hidden; }
+  .cover { position: relative; width: 960px; height: 288px; overflow: hidden; }
+  .art { position: absolute; top: 0; left: 480px; width: 480px; height: 288px; overflow: hidden; }
+  .art svg { display: block; width: 480px; height: 288px; }
+  .accent { fill: var(--accent); }
+  .deep { fill: var(--footer-bg); }
+  .gold { fill: var(--gold); }
+  .cut { fill: var(--page); }
+  .blk { rx: var(--radius-card); }
+  .spine { rx: var(--radius-sm); }
+  .spine-w { rx: var(--radius-banner); }
+  .words { position: absolute; left: var(--space-28); bottom: var(--space-24); max-width: 440px; }
+  .name { margin: 0; font-size: 80px; line-height: .95; font-weight: 600; letter-spacing: -.01em; color: var(--ink); }
+  .tag { margin: var(--space-12) 0 0 2px; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@300..700&family=Noto+Sans+Devanagari:wght@400;500;600&family=Yatra+One&display=swap"><link rel="stylesheet" href="../../tokens.css"><link rel="stylesheet" href="../bundle.css"></head>
+<body>
+<div class="cover">
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 480 288" width="480" height="288">
+<!--
+  blocks      accent 152×280 bled off the top (the brand's action colour, largest) · footer-bg 184×216 bled off the right (the deep maroon of the footer) · gold 64×20 once (the offer-banner highlight) — about 30% of 960×288
+  arrangement one tall accent slab and one deep slab with a row of book spines standing on a shared shelf line between them; bottoms on y=264
+  pattern     book spines: "Book covers are the hero of every page" and "Pills, not boxes" — upright pills of radius-sm (20 wide) and radius-banner (28 wide), five on the shelf in accent, footer-bg and gold, three cut out of the accent slab in page
+  scales      corners radius-card on the slabs; spine rx radius-sm / radius-banner (half their width); shelf gaps space-4; text inset space-28 / space-24
+-->
+<rect class="accent blk" x="0" y="-16" width="152" height="280" rx="16"/>
+<rect class="cut spine" x="24" y="152" width="20" height="96" rx="10"/>
+<rect class="cut spine" x="48" y="120" width="20" height="128" rx="10"/>
+<rect class="cut spine-w" x="72" y="176" width="28" height="72" rx="14"/>
+<rect class="accent spine" x="168" y="112" width="20" height="152" rx="10"/>
+<rect class="deep spine-w" x="192" y="80" width="28" height="184" rx="14"/>
+<rect class="gold spine" x="224" y="144" width="20" height="120" rx="10"/>
+<rect class="accent spine" x="248" y="96" width="20" height="168" rx="10"/>
+<rect class="deep spine-w" x="272" y="128" width="28" height="136" rx="14"/>
+<rect class="deep blk" x="312" y="48" width="184" height="216" rx="16"/>
+<rect class="gold spine" x="336" y="72" width="64" height="20" rx="10"/>
+</svg>
+</div>
+<div class="words">
+<h1 class="name">Rajkamal<br>Prakashan</h1>
+<p class="tag">Hindi books, literature and offers. Trusted for 75+ years.</p>
+</div>
+</div>
+</body>
+</html>
