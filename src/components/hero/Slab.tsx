@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { focusOf } from "@/data/gallery-focus";
 import type { GalleryPhoto } from "@/lib/gallery";
 import { photoAlt } from "@/lib/gallery";
 import { cn } from "@/lib/utils";
@@ -77,7 +78,8 @@ export function Slab({
             fill
             sizes={sizes}
             preload={preload}
-            className="object-cover transition-transform duration-700 ease-nav motion-safe:group-hover:scale-[1.06]"
+            className="object-cover"
+            style={{ objectPosition: focusOf(photo.src) }}
           />
         )}
         <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(156,23,23,0.05)_40%,rgba(110,18,18,0.55))]" />

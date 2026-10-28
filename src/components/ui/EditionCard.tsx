@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Edition } from "@/data/event";
+import { focusOf } from "@/data/gallery-focus";
 import { coverFor, photoAlt, photosFor } from "@/lib/gallery";
 import { cn } from "@/lib/utils";
 import { Icon } from "./Icon";
@@ -15,7 +16,7 @@ export function EditionCard({ edition }: { edition: Edition }) {
     <article
       id={edition.slug}
       className={cn(
-        "group relative flex min-h-[220px] scroll-mt-24 flex-col overflow-hidden rounded-panel bg-surface-content text-ink-content shadow-card transition-[border-color,box-shadow,transform] duration-300 hover:border-accent hover:shadow-card-hover motion-safe:hover:-translate-y-1",
+        "group relative flex h-full min-h-[220px] scroll-mt-24 flex-col overflow-hidden rounded-panel bg-surface-content text-ink-content shadow-card transition-[border-color,box-shadow,transform] duration-300 hover:border-accent hover:shadow-card-hover motion-safe:hover:-translate-y-1",
         edition.upcoming ? "border-[1.5px] border-dashed border-accent" : "border border-border-content",
       )}
     >
@@ -26,7 +27,8 @@ export function EditionCard({ edition }: { edition: Edition }) {
             alt={photoAlt(cover)}
             fill
             sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) 50vw, 400px"
-            className="object-cover transition-transform duration-700 motion-safe:group-hover:scale-[1.04]"
+            className="object-cover"
+            style={{ objectPosition: focusOf(cover.src) }}
           />
           <span className="absolute inset-0 bg-[linear-gradient(transparent_55%,rgba(20,8,5,0.55))]" />
         </Link>
@@ -48,9 +50,9 @@ export function EditionCard({ edition }: { edition: Edition }) {
         </span>
         <h3 className="relative mt-3 text-[1.6rem] font-semibold leading-tight">{edition.city}</h3>
         <p className="relative mt-1 text-[0.95rem] font-semibold text-accent">{edition.dates}</p>
-        {edition.venue && <p className="relative mt-auto max-w-[34ch] pt-6 text-[0.86rem] leading-normal text-ink-muted">{edition.venue}</p>}
+        {edition.venue && <p className="relative mt-4 min-h-[3em] max-w-[34ch] text-[0.86rem] leading-normal text-ink-muted">{edition.venue}</p>}
         {count > 0 && (
-          <Link href={`/gallery#${edition.slug}`} className="relative mt-4 inline-flex items-center gap-1.5 self-start text-[0.88rem] font-semibold text-accent no-underline hover:underline hover:underline-offset-[3px]">
+          <Link href={`/gallery#${edition.slug}`} className="relative mt-auto inline-flex items-center gap-1.5 self-start pt-5 text-[0.88rem] font-semibold text-accent no-underline hover:underline hover:underline-offset-[3px]">
             <Icon name="photo" className="size-4" /> {count} photos →
           </Link>
         )}

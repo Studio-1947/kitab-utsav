@@ -7,6 +7,7 @@ import { Icon } from "@/components/ui/Icon";
 import { MoreLink } from "@/components/ui/MoreLink";
 import { SectionHead } from "@/components/ui/SectionHead";
 import { CITY_PHOTOS } from "@/data/cities";
+import { focusOf } from "@/data/gallery-focus";
 import { MAP_CITIES } from "@/data/journey-map";
 import { JourneyMap, type JourneyCity, type JourneyVisit } from "@/components/journey/JourneyMap";
 import { cn } from "@/lib/utils";
@@ -91,7 +92,8 @@ export function Features() {
                     alt=""
                     fill
                     sizes={big ? "(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 640px" : "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 320px"}
-                    className="-z-20 object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]"
+                    className="-z-20 object-cover"
+                    style={{ objectPosition: focusOf(f.photo) }}
                   />
                   <span aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(20,6,4,0.05)_20%,rgba(20,6,4,0.55)_55%,rgba(20,6,4,0.92)_100%)]" />
                   <span aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,transparent_40%,rgba(110,20,20,0.55))] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

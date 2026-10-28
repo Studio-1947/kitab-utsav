@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import { groupLabel, photoAlt, type GalleryPhoto } from "@/lib/gallery";
+import { focusOf } from "@/data/gallery-focus";
 import { Icon } from "@/components/ui/Icon";
 import { Lightbox } from "./Lightbox";
 
@@ -194,7 +195,8 @@ export function PhotoCarousel({ photos, label, autoplay = false }: { photos: Gal
                     fill
                     draggable={false}
                     sizes="(max-width: 767px) 360px, 450px"
-                    className="pointer-events-none object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.04]"
+                    className="pointer-events-none object-cover"
+                    style={{ objectPosition: focusOf(p.src) }}
                   />
                   <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-[linear-gradient(transparent,rgba(20,8,5,0.8))] px-3 pb-2.5 pt-8 text-left text-[0.66rem] font-semibold uppercase tracking-[0.1em] text-gold">
                     {groupLabel(p.edition)}
