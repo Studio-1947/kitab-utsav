@@ -167,16 +167,16 @@ export const SPEAKERS = AUTHORS.filter((a) => a.speaker);
 /* What happens at the festival                                     */
 /* ---------------------------------------------------------------- */
 
-export const FEATURES: { icon: IconName; title: string; text: string }[] = [
-  { icon: "chat", title: "Author meets", text: "Face to face with writers about their books and lives, with signings." },
-  { icon: "bookOpen", title: "Readings", text: "Stories, poems and prose read in the writers' own voices." },
-  { icon: "mic", title: "Discussions", text: "Open debate on books and the questions around us." },
-  { icon: "sparkle", title: "Book launches", text: "New titles meeting readers for the first time." },
-  { icon: "library", title: "Book exhibition", text: "Books from Rajkamal, Radhakrishna, Lokbharti and Rajkamal Urdu." },
-  { icon: "stage", title: "Performances", text: "Dastangoi, folk performances and poetry evenings." },
-  { icon: "pen", title: "Workshops", text: "Writing, translation and storytelling workshops." },
-  { icon: "book", title: "Children's literature", text: "Story hours and book activities for young readers." },
-  { icon: "signature", title: "Book signings", text: "Get your favourite book signed by its author." },
+export const FEATURES: { icon: IconName; title: string; photo: string; text: string }[] = [
+  { icon: "chat", title: "Author meets", photo: "/gallery/bareilly-2026-004.webp", text: "Face to face with writers about their books and lives, with signings." },
+  { icon: "bookOpen", title: "Readings", photo: "/gallery/bareilly-2026-028.webp", text: "Stories, poems and prose read in the writers' own voices." },
+  { icon: "mic", title: "Discussions", photo: "/gallery/mumbai-2026-195.webp", text: "Open debate on books and the questions around us." },
+  { icon: "sparkle", title: "Book launches", photo: "/gallery/bareilly-2026-030.webp", text: "New titles meeting readers for the first time." },
+  { icon: "library", title: "Book exhibition", photo: "/gallery/bareilly-2026-015.webp", text: "Books from Rajkamal, Radhakrishna, Lokbharti and Rajkamal Urdu." },
+  { icon: "stage", title: "Performances", photo: "/gallery/bareilly-2026-018.webp", text: "Dastangoi, folk performances and poetry evenings." },
+  { icon: "pen", title: "Workshops", photo: "/gallery/bareilly-2026-017.webp", text: "Writing, translation and storytelling workshops." },
+  { icon: "book", title: "Children's literature", photo: "/gallery/patna-2026-140.webp", text: "Story hours and book activities for young readers." },
+  { icon: "signature", title: "Book signings", photo: "/gallery/indore-2026-056.webp", text: "Get your favourite book signed by its author." },
 ];
 
 /* ---------------------------------------------------------------- */
