@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { focusOf } from "@/data/gallery-focus";
 import type { GalleryPhoto } from "@/lib/gallery";
 import { photoAlt } from "@/lib/gallery";
@@ -35,9 +35,33 @@ function mask(w: number, h: number, slope: number, r: number, mirror: boolean, b
   return { maskImage: url, WebkitMaskImage: url, maskSize: "100% 100%", WebkitMaskSize: "100% 100%", maskRepeat: "no-repeat", WebkitMaskRepeat: "no-repeat" } as const;
 }
 
+/*
+  Photo outline: a tall shape sized by width only (mask-size 100% auto), so its top edge keeps the
+  card's slope whatever height the photo ends up. The card is stretched to a different ratio per
+  screen size (see the aspect classes below), so each size gets the slope that matches it:
+  phones 200/210, small laptops 200/290, large screens 200/342. Gap above = gap at the sides.
+*/
+const PHOTO_H = 800; // taller than any photo area, so only the top edge shows
+const PHOTO_R = 28;
+function photoMaskUrl(cardH: number, mirror: boolean) {
+  const slope = (SLOPE / H) * cardH * ((W - 2 * 6) / W); // card slope, scaled to the photo's width (3% gap each side)
+  const flip = mirror ? ` transform="matrix(-1 0 0 1 ${W} 0)"` : "";
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${PHOTO_H}"><path${flip} d="${slopedPath(W, PHOTO_H, slope, PHOTO_R, 0)}"/></svg>`;
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+}
+function photoMask(mirror: boolean) {
+  return {
+    "--pm-sm": photoMaskUrl(210, mirror),
+    "--pm-md": photoMaskUrl(290, mirror),
+    "--pm-lg": photoMaskUrl(H, mirror),
+  } as CSSProperties;
+}
+const PHOTO_MASK_CLASS =
+  "[--pm:var(--pm-sm)] md:[--pm:var(--pm-lg)] md:max-xl:[--pm:var(--pm-md)] [mask-image:var(--pm)] [-webkit-mask-image:var(--pm)] [mask-size:100%_auto] [-webkit-mask-size:100%_auto] [mask-repeat:no-repeat] [-webkit-mask-repeat:no-repeat] [mask-position:top] [-webkit-mask-position:top]";
+
 const SHAPES = {
-  left: { card: mask(W, H, SLOPE, R, false), panel: mask(PW, PH, PSLOPE, PR, false), photo: mask(W, H, SLOPE, R, false, 0) },
-  right: { card: mask(W, H, SLOPE, R, true), panel: mask(PW, PH, PSLOPE, PR, true), photo: mask(W, H, SLOPE, R, true, 0) },
+  left: { card: mask(W, H, SLOPE, R, false), panel: mask(PW, PH, PSLOPE, PR, false), photo: photoMask(false) },
+  right: { card: mask(W, H, SLOPE, R, true), panel: mask(PW, PH, PSLOPE, PR, true), photo: photoMask(true) },
 };
 
 /* What the back of a slab shows when it flips over */
@@ -86,7 +110,7 @@ export function Slab({
     <Link
       href={href}
       className={cn(
-        "group @container relative block aspect-[200/308] w-full no-underline [perspective:1400px] max-md:aspect-[200/210] md:aspect-[200/342] drop-shadow-[0_18px_28px_rgba(40,6,6,0.35)] transition-transform duration-500 ease-nav motion-safe:hover:-translate-y-2 focus-visible:outline-none",
+        "group @container relative block aspect-[200/308] w-full no-underline [perspective:1400px] max-md:aspect-[200/210] md:aspect-[200/342] md:max-xl:aspect-[200/290] drop-shadow-[0_18px_28px_rgba(40,6,6,0.35)] transition-transform duration-500 ease-nav motion-safe:hover:-translate-y-2 focus-visible:outline-none",
         className,
       )}
     >
@@ -96,7 +120,7 @@ export function Slab({
           <span className="absolute inset-0 bg-[linear-gradient(170deg,#7d1818_0%,#6a1212_55%,#5a0f0f_100%)]" style={shape.card} />
 
           {/* Photo area: follows the card's outer slope and fills whatever height the caption leaves, so they never overlap. */}
-          <span className="relative mx-[3%] mt-[3%] min-h-0 flex-1 overflow-hidden bg-slab-face" style={shape.photo}>
+          <span className={cn("relative mx-[3%] mt-[3%] min-h-0 flex-1 overflow-hidden bg-slab-face", PHOTO_MASK_CLASS)} style={shape.photo}>
             {photo && (
               <Image
                 src={photo.src}
