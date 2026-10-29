@@ -18,7 +18,7 @@ export default function FestivalsPage() {
         </p>
       </PageHero>
 
-      <div className="wrap flex flex-col gap-10 py-10 md:gap-14 md:py-14">
+      <div className="wrap flex flex-col gap-10 py-8 md:gap-14 md:py-14">
         {years.map((year) => (
           <section key={year} aria-labelledby={`y-${year}`}>
             <h2 id={`y-${year}`} className="mb-4 text-[clamp(1.8rem,3.5vw,2.4rem)] font-semibold tabular-nums text-ink-content">

@@ -37,7 +37,7 @@ export function Avatar({ author, size = "lg" }: { author: Author; size?: "md" | 
 /* Author with full bio (speakers, authors page). */
 export function AuthorCard({ author, showEdition = false }: { author: Author; showEdition?: boolean }) {
   return (
-    <article id={showEdition ? authorSlug(author) : undefined} className="flex scroll-mt-24 gap-4 rounded-panel border border-border-content bg-surface-content p-5 text-ink-content shadow-card transition-[border-color,box-shadow,transform] duration-300 hover:border-accent hover:shadow-card-hover motion-safe:hover:-translate-y-1 md:p-6">
+    <article id={showEdition ? authorSlug(author) : undefined} className="flex scroll-mt-24 gap-3.5 rounded-panel border border-border-content bg-surface-content p-4 sm:gap-4 sm:p-5 text-ink-content shadow-card transition-[border-color,box-shadow,transform] duration-300 hover:border-accent hover:shadow-card-hover motion-safe:hover:-translate-y-1 md:p-6">
       <Avatar author={author} />
       <div className="flex min-w-0 flex-col gap-1">
         <h3 className="text-[1.15rem] font-semibold leading-tight">{author.name}</h3>

@@ -54,6 +54,13 @@
   --rk-hero-line: rgba(160, 54, 31, 0.2);
   --rk-hero-ink: #3c140a;
   --rk-hero-muted: #8d6f64;
+  /* Full-width top bar */
+  --rk-bar-bg: rgba(255, 251, 246, 0.9);
+  --rk-bar-glow: rgba(203, 35, 35, 0.06);
+  --rk-bar-ink: #3c140a;
+  --rk-bar-line: rgba(160, 54, 31, 0.16);
+  --rk-bar-btn: rgba(160, 54, 31, 0.04);
+  --rk-bar-btn-line: rgba(160, 54, 31, 0.22);
   color-scheme: light;
 }
 
@@ -98,5 +105,11 @@
   --rk-hero-line: rgba(255, 255, 255, 0.22);
   --rk-hero-ink: #f7e8da;
   --rk-hero-muted: #cdb9ae;
+  --rk-bar-bg: rgba(27, 18, 16, 0.94);
+  --rk-bar-glow: rgba(255, 255, 255, 0.05);
+  --rk-bar-ink: #ffffff;
+  --rk-bar-line: rgba(255, 255, 255, 0.08);
+  --rk-bar-btn: rgba(255, 255, 255, 0.05);
+  --rk-bar-btn-line: rgba(255, 255, 255, 0.24);
   color-scheme: dark;
 }

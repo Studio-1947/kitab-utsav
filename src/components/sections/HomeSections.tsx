@@ -34,9 +34,9 @@ export function Speakers() {
     <section aria-labelledby="speakers-title" className={cn(section, "bg-page-warm")}>
       <div className="wrap">
         <Reveal><SectionHead id="speakers-title" eyebrow={`Meet them in ${EVENT.city}`} title="Speakers Announced So Far" aside={<MoreLink href="/events">Events</MoreLink>} /></Reveal>
-        <div className="grid gap-5 lg:grid-cols-3">
+        <div className="rail lg:rail-off lg:grid lg:grid-cols-3 lg:gap-5">
           {SPEAKERS.map((a, i) => (
-            <Reveal key={a.name} delay={i * 0.08} className="h-full"><SpeakerCard author={a} index={i} total={SPEAKERS.length} /></Reveal>
+            <Reveal key={a.name} delay={i * 0.08} className="w-[86%] max-w-[400px] md:w-[46%] lg:w-auto lg:max-w-none"><SpeakerCard author={a} index={i} total={SPEAKERS.length} /></Reveal>
           ))}
         </div>
       </div>
@@ -55,12 +55,12 @@ export function Writers() {
           aside={<MoreLink href="/authors">All authors</MoreLink>}
         /></Reveal>
         <Reveal delay={0.04}><p className="-mt-3 mb-6 max-w-[60ch] text-body text-ink-muted">Selected writers who have joined Kitab Utsav across cities and editions.</p></Reveal>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4 lg:grid-cols-4">
+        <div className="rail md:rail-off md:grid md:grid-cols-3 md:gap-4 lg:grid-cols-4">
           {AUTHORS.map((a, i) => (
-            <Reveal key={a.name} delay={(i % 4) * 0.05} className="h-full"><WriterCard author={a} /></Reveal>
+            <Reveal key={a.name} delay={(i % 4) * 0.05} className="w-[44%] max-w-[200px] md:w-auto md:max-w-none"><WriterCard author={a} /></Reveal>
           ))}
-          {/* Spans the cells left on the last row: 13 writers leave 2 of 3 (sm) or 3 of 4 (lg) */}
-          <Reveal delay={0.1} className="col-span-2 lg:col-span-3"><WritersSummary authors={AUTHORS} className="h-full" /></Reveal>
+          {/* Phones: the closing card of the rail. Grid: spans the cells left on the last row (13 writers leave 2 of 3 at md, 3 of 4 at lg) */}
+          <Reveal delay={0.1} className="w-[86%] max-w-[400px] md:col-span-2 md:w-auto md:max-w-none lg:col-span-3"><WritersSummary authors={AUTHORS} className="h-full" /></Reveal>
         </div>
       </div>
     </section>
@@ -84,7 +84,7 @@ export function Features() {
                 <article
                   className={cn(
                     "group relative isolate flex h-full flex-col justify-end overflow-hidden rounded-panel bg-footer-bg text-white shadow-card transition-[box-shadow,transform] duration-500 hover:shadow-card-hover motion-safe:hover:-translate-y-1",
-                    big ? "min-h-[300px] p-6 md:p-8 lg:min-h-[520px]" : "min-h-[240px] p-5",
+                    big ? "min-h-[320px] p-5 md:p-8 lg:min-h-[520px]" : "min-h-[220px] p-4 md:min-h-[240px] md:p-5",
                   )}
                 >
                   <Image
@@ -98,15 +98,15 @@ export function Features() {
                   <span aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(20,6,4,0.05)_20%,rgba(20,6,4,0.55)_55%,rgba(20,6,4,0.92)_100%)]" />
                   <span aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,transparent_40%,rgba(110,20,20,0.55))] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-                  <span className={cn("absolute left-4 top-4 grid place-items-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-md", big ? "size-12 md:left-6 md:top-6" : "size-10")}>
+                  <span className={cn("absolute grid place-items-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-md", big ? "left-4 top-4 size-12 md:left-6 md:top-6" : "left-3 top-3 size-9 md:left-4 md:top-4 md:size-10")}>
                     <Icon name={f.icon} className={big ? "size-5" : "size-[18px]"} />
                   </span>
-                  <span aria-hidden="true" className="absolute right-4 top-4 text-[0.75rem] font-semibold tabular-nums text-white/75 [text-shadow:0_1px_6px_rgba(0,0,0,0.7)]">
+                  <span aria-hidden="true" className="absolute right-3.5 top-3.5 text-[0.75rem] md:right-4 md:top-4 font-semibold tabular-nums text-white/75 [text-shadow:0_1px_6px_rgba(0,0,0,0.7)]">
                     {String(i + 1).padStart(2, "0")}
                   </span>
 
-                  <h3 className={cn("font-semibold leading-tight", big ? "text-[clamp(1.6rem,3vw,2.3rem)]" : "text-[1.15rem]")}>{f.title}</h3>
-                  <p className={cn("mt-1.5 leading-[1.5] text-white/80", big ? "max-w-[36ch] text-[1rem] md:text-[1.05rem]" : "text-[0.88rem]")}>{f.text}</p>
+                  <h3 className={cn("font-semibold leading-tight", big ? "text-[clamp(1.6rem,3vw,2.3rem)]" : "text-[1.02rem] md:text-[1.15rem]")}>{f.title}</h3>
+                  <p className={cn("mt-1.5 leading-[1.5] text-white/80", big ? "max-w-[36ch] text-[0.95rem] md:text-[1.05rem]" : "line-clamp-4 text-[0.82rem] md:text-[0.88rem]")}>{f.text}</p>
                   <span aria-hidden="true" className={cn("mt-3 block h-0.5 w-8 rounded-full bg-gold transition-[width] duration-500 group-hover:w-16", big && "w-12")} />
                 </article>
               </Reveal>
@@ -127,7 +127,7 @@ export function Moments() {
             <p className="text-eyebrow uppercase text-gold">Festival moments</p>
             <h2 id="moments-title" className="mt-1.5 text-balance text-section-title">Kitab Utsav in Pictures</h2>
           </div>
-          <Link href="/gallery" className="whitespace-nowrap text-[0.92rem] font-semibold text-gold no-underline hover:underline hover:underline-offset-[3px]">
+          <Link href="/gallery" className="tap-area whitespace-nowrap text-[0.92rem] font-semibold text-gold no-underline hover:underline hover:underline-offset-[3px]">
             All photos →
           </Link>
         </div></Reveal>
@@ -210,9 +210,9 @@ export function RecentEditions() {
     <section aria-labelledby="editions-title" className={section}>
       <div className="wrap">
         <Reveal><SectionHead id="editions-title" eyebrow="Festivals" title="Recent Editions" aside={<MoreLink href="/festivals">All editions</MoreLink>} /></Reveal>
-        <div className="grid gap-3.5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="rail md:rail-off md:grid md:grid-cols-2 md:gap-3.5 lg:grid-cols-3">
           {EDITIONS.slice(0, 6).map((e, i) => (
-            <Reveal key={e.slug} delay={(i % 3) * 0.07} className="h-full"><EditionCard edition={e} /></Reveal>
+            <Reveal key={e.slug} delay={(i % 3) * 0.07} className="w-[84%] max-w-[380px] md:w-auto md:max-w-none"><EditionCard edition={e} /></Reveal>
           ))}
         </div>
       </div>
@@ -224,18 +224,18 @@ export function Follow() {
   return (
     <section aria-labelledby="follow-title" className="pb-12 md:pb-18">
       <div className="wrap">
-        <Reveal><div className="flex flex-col gap-5 rounded-hero bg-footer-bg px-6 py-8 text-footer-ink shadow-lift transition-transform duration-500 motion-safe:hover:-translate-y-1 md:flex-row md:items-center md:justify-between md:px-10 md:py-10">
+        <Reveal><div className="flex flex-col gap-5 rounded-hero bg-footer-bg px-5 py-7 text-footer-ink shadow-lift transition-transform duration-500 motion-safe:hover:-translate-y-1 md:flex-row md:items-center md:justify-between md:px-10 md:py-10">
           <div>
             <h2 id="follow-title" className="text-section-title">Follow Kitab Utsav</h2>
             <p className="mt-1.5 text-[0.95rem] opacity-90">
               Announcements, speaker lists and festival moments, first. <span className="font-semibold text-gold">{EVENT.hashtag}</span>
             </p>
           </div>
-          <div className="flex flex-wrap gap-2.5">
-            <a href={EVENT.instagram.href} target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-pill border-[1.5px] border-gold bg-gold px-4 py-2.5 text-button text-footer-bg no-underline transition-transform duration-150 active:scale-[0.97]">
+          <div className="flex flex-wrap gap-2.5 [&>a]:flex-1 [&>a]:justify-center md:[&>a]:flex-none">
+            <a href={EVENT.instagram.href} target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-pill border-[1.5px] border-gold bg-gold px-4 py-3 text-button md:py-2.5 text-footer-bg no-underline transition-transform duration-150 active:scale-[0.97]">
               <Icon name="instagram" className="size-4" /> {EVENT.instagram.handle}
             </a>
-            <a href={EVENT.facebook.href} target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-pill border-[1.5px] border-footer-ink px-4 py-2.5 text-button text-footer-ink no-underline transition-colors duration-200 hover:border-gold hover:text-gold">
+            <a href={EVENT.facebook.href} target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-pill border-[1.5px] border-footer-ink px-4 py-3 text-button md:py-2.5 text-footer-ink no-underline transition-colors duration-200 hover:border-gold hover:text-gold">
               <Icon name="facebook" className="size-4" /> {EVENT.facebook.handle}
             </a>
           </div>

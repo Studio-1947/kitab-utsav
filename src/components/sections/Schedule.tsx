@@ -48,7 +48,7 @@ export function Schedule() {
 
   return (
     <div>
-      <p className="mb-5 flex items-start gap-3 rounded-banner border-[1.5px] border-dashed border-clay bg-surface-soft px-4 py-3.5 text-[0.95rem] text-ink-content">
+      <p className="mb-5 flex items-start gap-3 rounded-banner border-[1.5px] border-dashed border-clay bg-surface-soft px-4 py-3.5 text-[0.92rem] md:text-[0.95rem] text-ink-content">
         <Icon name="clock" className="mt-0.5 text-clay" />
         <span>
           {SCHEDULE_NOTE}{" "}
@@ -63,7 +63,7 @@ export function Schedule() {
         role="tablist"
         aria-label="Festival days"
         onKeyDown={onKey}
-        className="no-scrollbar -mx-4 mb-5 flex snap-x snap-mandatory scroll-px-4 gap-2.5 overflow-x-auto px-4 pb-0.5 md:mx-0 md:flex-wrap md:px-0"
+        className="no-scrollbar -mx-4 mb-5 flex snap-x snap-mandatory scroll-px-4 gap-2 overflow-x-auto px-4 pb-0.5 md:mx-0 md:flex-wrap md:gap-2.5 md:px-0"
       >
         {SCHEDULE.map((d, i) => {
           const p = dayParts(d.date);
@@ -80,7 +80,7 @@ export function Schedule() {
               tabIndex={selected ? 0 : -1}
               onClick={() => select(i)}
               className={cn(
-                "flex min-w-[130px] flex-none cursor-pointer snap-start flex-col items-start gap-0.5 rounded-card border px-4 py-3 text-left transition-[background-color,border-color,color,transform] duration-200 active:scale-[0.97]",
+                "flex min-w-[118px] flex-none cursor-pointer snap-start md:min-w-[130px] flex-col items-start gap-0.5 rounded-card border px-4 py-3 text-left transition-[background-color,border-color,color,transform] duration-200 active:scale-[0.97]",
                 selected ? "border-accent-fill bg-accent-fill text-on-accent" : "border-border bg-surface-card text-ink hover:border-accent hover:bg-accent-soft",
               )}
             >

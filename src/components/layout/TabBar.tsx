@@ -25,7 +25,7 @@ export function TabBar() {
           key={t.href}
           href={t.href}
           aria-current={pathname === t.href ? "page" : undefined}
-          className="flex flex-col items-center gap-0.5 rounded-pill py-1.5 text-[0.7rem] font-medium text-ink no-underline transition-[background-color,color,transform] duration-200 active:scale-95 aria-[current]:bg-accent-soft aria-[current]:text-accent"
+          className="flex min-h-[52px] flex-col items-center justify-center gap-0.5 rounded-pill py-1.5 text-[0.72rem] font-medium leading-tight text-ink no-underline transition-[background-color,color,transform] duration-200 active:scale-95 aria-[current]:bg-accent-soft aria-[current]:text-accent"
         >
           <Icon name={t.icon} className="size-5" />
           {t.label}

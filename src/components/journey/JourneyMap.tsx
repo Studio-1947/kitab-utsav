@@ -82,7 +82,7 @@ export function JourneyMap({ cities, route }: { cities: JourneyCity[]; route: st
                   onClick={() => setSelected(c.city)}
                   aria-pressed={on}
                   aria-label={`${c.city}: ${c.visits.length} ${c.visits.length === 1 ? "visit" : "visits"}`}
-                  className="group absolute z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer p-2 focus-visible:outline-none"
+                  className="group absolute z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer p-3 focus-visible:outline-none md:p-2"
                   style={{ left: pct(c.x, MAP_SIZE.w), top: pct(c.y, MAP_SIZE.h) }}
                 >
                   {(c.current || on) && <span aria-hidden="true" className={cn("absolute inset-0 m-auto size-5 rounded-full motion-safe:animate-ping", c.current ? "bg-gold" : "bg-accent", "opacity-60")} />}
@@ -97,7 +97,7 @@ export function JourneyMap({ cities, route }: { cities: JourneyCity[]; route: st
                     aria-hidden="true"
                     className={cn(
                       "pointer-events-none absolute top-1/2 -translate-y-1/2 whitespace-nowrap rounded-pill px-2 py-0.5 text-[0.7rem] font-semibold shadow-card transition-colors duration-200 md:text-[0.76rem]",
-                      c.labelLeft ? "right-full mr-0.5" : "left-full ml-0.5",
+                      c.labelLeft ? "right-full -mr-1 md:mr-0.5" : "left-full -ml-1 md:ml-0.5",
                       on ? "bg-accent-fill text-on-accent" : "bg-surface-content/90 text-ink-content group-hover:text-accent",
                     )}
                   >
@@ -108,7 +108,7 @@ export function JourneyMap({ cities, route }: { cities: JourneyCity[]; route: st
             })}
           </div>
         </div>
-        <p className="pointer-events-none absolute bottom-3 left-4 text-meta text-ink-muted">Tap a city to see its festivals</p>
+        <p className="pointer-events-none absolute bottom-3 left-4 right-4 text-meta text-ink-muted">Tap a city to see its festivals</p>
       </div>
 
       {/* Details for the selected city */}
@@ -132,7 +132,7 @@ export function JourneyMap({ cities, route }: { cities: JourneyCity[]; route: st
             </figcaption>
           </figure>
 
-          <div className="p-5">
+          <div className="p-4 sm:p-5">
             <p className="text-eyebrow uppercase text-accent">
               {active.visits.length} {active.visits.length === 1 ? "visit" : "visits"}
             </p>
@@ -150,7 +150,7 @@ export function JourneyMap({ cities, route }: { cities: JourneyCity[]; route: st
             </ol>
 
             {latest?.slug && (
-              <div className="mt-5 flex flex-wrap gap-2">
+              <div className="mt-5 flex flex-wrap gap-2 [&>a]:min-h-11 [&>a]:flex-1 md:[&>a]:min-h-0 md:[&>a]:flex-none">
                 <Link href={`/festivals#${latest.slug}`} className={buttonClass()}>
                   Explore details
                 </Link>
@@ -172,7 +172,7 @@ export function JourneyMap({ cities, route }: { cities: JourneyCity[]; route: st
                 type="button"
                 onClick={() => setSelected(name)}
                 aria-pressed={name === active.city}
-                className="inline-flex cursor-pointer items-center gap-1.5 rounded-pill border border-border bg-transparent px-3 py-1.5 text-[0.82rem] font-medium text-ink-content transition-colors duration-150 hover:border-accent hover:text-accent aria-pressed:border-accent aria-pressed:bg-accent-soft aria-pressed:text-accent"
+                className="inline-flex min-h-10 cursor-pointer items-center gap-1.5 rounded-pill border border-border bg-transparent px-3.5 py-1.5 text-[0.85rem] md:min-h-0 md:px-3 md:text-[0.82rem] font-medium text-ink-content transition-colors duration-150 hover:border-accent hover:text-accent aria-pressed:border-accent aria-pressed:bg-accent-soft aria-pressed:text-accent"
               >
                 <span className="text-[0.7rem] tabular-nums text-ink-muted">{i + 1}</span>
                 {name}

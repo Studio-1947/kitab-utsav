@@ -22,7 +22,7 @@ export default function GalleryPage() {
         </p>
       </PageHero>
 
-      <div className="wrap py-8 md:py-12">
+      <div className="wrap py-6 md:py-12">
         <PhotoGallery photos={GALLERY} />
       </div>
     </>

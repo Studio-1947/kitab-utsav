@@ -53,7 +53,7 @@ export function SpeakerCard({ author, index, total }: { author: Author; index: n
         </div>
       </div>
 
-      <div className="relative -mt-16 px-6">
+      <div className="relative -mt-16 px-5 md:px-6">
         <div className="relative size-32 rounded-full bg-surface-content p-1.5 shadow-[0_12px_30px_-12px_rgba(60,10,10,0.55)]">
           <div className="size-full overflow-hidden rounded-full">
             <Portrait author={author} px={128} monoText="text-[1.05rem]" className="transition-transform duration-700 ease-out group-hover:scale-[1.07]" />
@@ -64,13 +64,13 @@ export function SpeakerCard({ author, index, total }: { author: Author; index: n
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col px-6 pb-6 pt-4">
+      <div className="flex flex-1 flex-col px-5 pb-5 pt-4 md:px-6 md:pb-6">
         <p className="text-eyebrow uppercase text-accent">{author.role}</p>
-        <h3 className="mt-1.5 text-[1.55rem] font-semibold leading-tight">{author.name}</h3>
+        <h3 className="mt-1.5 text-[1.4rem] font-semibold leading-tight md:text-[1.55rem]">{author.name}</h3>
         <p lang="hi" className="mt-0.5 text-ink-muted">
           {author.nameHi}
         </p>
-        <p className="mt-3 text-[0.93rem] leading-[1.65] text-ink-muted">{author.bio}</p>
+        <p className="mt-3 text-[0.92rem] leading-[1.6] text-ink-muted md:text-[0.93rem] md:leading-[1.65]">{author.bio}</p>
 
         <div className="mt-auto flex items-center justify-between gap-3 border-t border-border-content pt-4 text-[0.85rem]">
           <span className="inline-flex items-center gap-1.5 text-ink-muted">
@@ -79,7 +79,7 @@ export function SpeakerCard({ author, index, total }: { author: Author; index: n
           <Link
             href={`/authors#${authorSlug(author)}`}
             aria-label={`${author.name}: profile`}
-            className="inline-flex items-center gap-1 font-semibold text-accent no-underline hover:underline hover:underline-offset-[3px]"
+            className="tap-area inline-flex items-center gap-1 font-semibold text-accent no-underline hover:underline hover:underline-offset-[3px]"
           >
             Profile <Icon name="arrowRight" className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
           </Link>
@@ -116,7 +116,7 @@ export function WriterCard({ author }: { author: Author }) {
       <p lang="hi" className="relative text-[0.88rem] text-ink-muted">
         {author.nameHi}
       </p>
-      <p className="relative mt-2.5 rounded-pill bg-accent-soft px-2.5 py-1 text-[0.7rem] font-semibold leading-tight text-accent">{author.role}</p>
+      <p className="relative mt-2.5 rounded-pill bg-accent-soft px-2.5 py-1 text-[0.72rem] font-semibold leading-tight text-accent">{author.role}</p>
       <p className="relative mt-auto inline-flex items-center gap-1 pt-4 text-meta text-ink-muted">
         <Icon name="pin" className="size-3.5 text-accent" /> {author.city}
       </p>
@@ -130,7 +130,7 @@ export function WritersSummary({ authors, className }: { authors: Author[]; clas
   const since = Math.min(...authors.map((a) => a.year));
   const faces = authors.filter((a) => a.photo).slice(0, 5);
   return (
-    <div className={cn("relative flex flex-col justify-between gap-5 overflow-hidden rounded-panel bg-footer-bg p-6 text-footer-ink shadow-card sm:flex-row sm:items-center md:p-8", className)}>
+    <div className={cn("relative flex flex-col justify-between gap-5 overflow-hidden rounded-panel bg-footer-bg p-6 text-footer-ink shadow-card md:flex-row md:items-center md:p-8", className)}>
       <span aria-hidden="true" lang="hi" className="pointer-events-none absolute -bottom-8 -right-2 whitespace-nowrap text-[7rem] font-bold leading-none text-white/[0.04]">
         लेखक
       </span>
@@ -149,7 +149,7 @@ export function WritersSummary({ authors, className }: { authors: Author[]; clas
       </div>
       <Link
         href="/authors"
-        className="relative inline-flex flex-none items-center gap-2 self-start rounded-pill bg-gold px-5 py-2.5 text-button text-footer-bg no-underline transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.97] sm:self-center"
+        className="relative inline-flex flex-none items-center gap-2 self-start rounded-pill bg-gold px-5 py-2.5 text-button text-footer-bg no-underline transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.97] md:self-center"
       >
         Meet all authors <Icon name="arrowRight" className="size-4" />
       </Link>

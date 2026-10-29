@@ -12,7 +12,7 @@ export function Chip({
       type="button"
       aria-pressed={pressed}
       className={cn(
-        "inline-flex flex-none cursor-pointer items-center gap-1.5 rounded-pill border border-border bg-transparent px-3.5 py-2 text-chip text-inherit transition-colors duration-150",
+        "inline-flex min-h-10 flex-none cursor-pointer items-center gap-1.5 rounded-pill border border-border bg-transparent px-3.5 py-2 text-chip text-inherit transition-colors duration-150",
         "hover:bg-accent-soft aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-on-accent",
         className,
       )}

@@ -25,7 +25,7 @@ export default function EventsPage() {
         </p>
       </PageHero>
 
-      <div className="wrap py-10 md:py-14">
+      <div className="wrap py-8 md:py-14">
         <Schedule />
       </div>
 

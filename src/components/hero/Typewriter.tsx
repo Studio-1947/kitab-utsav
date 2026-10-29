@@ -20,8 +20,9 @@ function letters(text: string): string[] {
   Types each line, holds, erases, then moves to the next, on a loop.
   An invisible copy of every line reserves the space, so the bubble never changes size.
   Reduced motion: all lines shown at once, no animation.
+  A line with `center` sits in the middle of the space set by the widest line.
 */
-export function Typewriter({ lines }: { lines: { text: string; lang: string }[] }) {
+export function Typewriter({ lines }: { lines: { text: string; lang: string; center?: boolean }[] }) {
   const reduceMotion = useReducedMotion();
   const [line, setLine] = useState(0);
   const [count, setCount] = useState(0);
@@ -57,7 +58,7 @@ export function Typewriter({ lines }: { lines: { text: string; lang: string }[] 
     return (
       <span className="flex flex-col">
         {lines.map((l) => (
-          <span key={l.text} lang={l.lang}>
+          <span key={l.text} lang={l.lang} className={l.center ? "text-center" : undefined}>
             {l.text}
           </span>
         ))}
@@ -74,7 +75,7 @@ export function Typewriter({ lines }: { lines: { text: string; lang: string }[] 
           <span className="inline-block w-[0.5em]" />
         </span>
       ))}
-      <span lang={lines[line].lang} className="[grid-area:1/1]">
+      <span lang={lines[line].lang} className={`[grid-area:1/1] ${lines[line].center ? "text-center" : ""}`}>
         {current.slice(0, count).join("")}
         <span className="ml-[1px] inline-block h-[1.05em] w-[2px] translate-y-[0.15em] bg-current motion-safe:animate-[caret_1s_steps(1)_infinite]" />
       </span>

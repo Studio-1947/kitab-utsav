@@ -22,25 +22,26 @@ function Row({ icon, label, children }: { icon: IconName; label: string; childre
   );
 }
 
-const link = "font-medium text-accent underline underline-offset-[3px] hover:text-accent-hover";
+const link = "inline-block py-1 font-medium text-accent underline underline-offset-[3px] [overflow-wrap:anywhere] hover:text-accent-hover";
 
 export default function VisitPage() {
   return (
     <>
       <PageHero crumb="Visit" eyebrow={`${EVENT.city} · ${EVENT.dateLabel}`} title="Plan Your Visit" />
 
-      <div className="wrap grid items-start gap-6 py-10 md:py-14 lg:grid-cols-[1.4fr_1fr]">
-        <div className="overflow-hidden rounded-panel border-[1.5px] border-dashed border-border bg-cover-well">
+      <div className="wrap grid items-start gap-5 py-8 md:gap-6 md:py-14 lg:grid-cols-[1.4fr_1fr]">
+        <div className="order-2 overflow-hidden rounded-panel border-[1.5px] border-dashed border-border bg-cover-well lg:order-none">
           <iframe
             title={`Map: ${EVENT.venueShort}`}
             src={mapsEmbedUrl}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            className="block aspect-[4/3] w-full border-0 lg:aspect-[16/11]"
+            className="block aspect-square w-full border-0 sm:aspect-[4/3] lg:aspect-[16/11]"
           />
         </div>
 
-        <aside className="rounded-panel border border-border-content bg-surface-content p-5 shadow-card md:p-7">
+        {/* Phones: the essentials (dates, time, venue, directions) come before the map */}
+        <aside className="order-1 rounded-panel border border-border-content bg-surface-content p-5 shadow-card md:p-7 lg:order-none">
           <dl className="flex flex-col gap-5">
             <Row icon="calendar" label="Dates">{EVENT.dateLabel}</Row>
             <Row icon="clock" label="Time">{EVENT.hours}</Row>
@@ -56,7 +57,7 @@ export default function VisitPage() {
               <a href={`mailto:${EVENT.email}`} className={link}>{EVENT.email}</a>
             </Row>
           </dl>
-          <div className="mt-6 flex flex-wrap gap-2.5">
+          <div className="mt-6 flex flex-wrap gap-2.5 [&>a]:flex-1 [&>a]:basis-[11rem]">
             <a href={mapsDirectionsUrl} target="_blank" rel="noopener" className={buttonClass({ size: "lg" })}>
               <Icon name="pin" className="size-4" /> Get directions
             </a>
@@ -67,9 +68,9 @@ export default function VisitPage() {
         </aside>
       </div>
 
-      <section aria-labelledby="know-title" className="wrap pb-14">
+      <section aria-labelledby="know-title" className="wrap pb-12 md:pb-14">
         <h2 id="know-title" className="mb-4 text-section-title text-ink-content">Good to Know</h2>
-        <ul className="flex flex-col gap-2.5 text-[1.05rem] text-ink-content">
+        <ul className="flex flex-col gap-2.5 text-[1rem] text-ink-content md:text-[1.05rem]">
           {[
             <>The festival is open all five days from {EVENT.hoursShort}.</>,
             <>Session timings for each day are on the <Link href="/events" className={link}>programme</Link> page.</>,

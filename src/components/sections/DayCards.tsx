@@ -13,12 +13,12 @@ export function DayCards() {
   const hasToday = SCHEDULE.some((d) => d.date === today);
 
   return (
-    <ol className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-5">
+    <ol className="rail md:rail-off md:grid md:grid-cols-5 md:gap-2.5">
       {SCHEDULE.map((d, i) => {
         const p = dayParts(d.date);
         const on = hasToday ? d.date === today : i === 0;
         return (
-          <li key={d.date}>
+          <li key={d.date} className="w-[36%] min-w-[124px] md:w-auto md:min-w-0">
             <Link
               href={`/events#day-${i + 1}`}
               aria-current={d.date === today ? "date" : undefined}
@@ -28,7 +28,7 @@ export function DayCards() {
               )}
             >
               <span className={cn("text-label", !on && "text-accent")}>Day {i + 1}</span>
-              <span className="text-[2rem] font-semibold leading-tight tabular-nums">{p.num}</span>
+              <span className="text-[1.85rem] font-semibold leading-tight tabular-nums md:text-[2rem]">{p.num}</span>
               <span className="text-[0.98rem]">{p.month} {p.weekday}</span>
               <span className="mt-2.5 text-meta opacity-80">{d.date === today ? "Today · Sessions soon" : "Sessions soon"}</span>
             </Link>

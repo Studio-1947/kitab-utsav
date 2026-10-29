@@ -50,6 +50,12 @@
   --color-hero-line: var(--rk-hero-line);
   --color-hero-ink: var(--rk-hero-ink);
   --color-hero-muted: var(--rk-hero-muted);
+  --color-bar-bg: var(--rk-bar-bg);
+  --color-bar-glow: var(--rk-bar-glow);
+  --color-bar-ink: var(--rk-bar-ink);
+  --color-bar-line: var(--rk-bar-line);
+  --color-bar-btn: var(--rk-bar-btn);
+  --color-bar-btn-line: var(--rk-bar-btn-line);
   /* Hero slabs stay festival red in both themes */
   --color-slab: #6e1414;
   --color-slab-face: #9c1717;
@@ -149,16 +155,11 @@
   --animate-rise: rise 0.7s var(--ease-nav) both;
   --animate-drop: drop 0.25s ease both;
   --animate-toast: drop 0.25s ease both, toast-out 0.3s ease 2.8s forwards;
-  --animate-marquee: marquee 40s linear infinite;
 
   --animate-float: float 5s ease-in-out infinite;
 
   @keyframes float {
     50% { transform: translateY(-8px); }
-  }
-
-  @keyframes marquee {
-    to { transform: translateX(-50%); }
   }
 
   @keyframes toast-out {
@@ -191,11 +192,80 @@
   &::-webkit-scrollbar { display: none; }
 }
 
+/*
+  Swipeable row for phones: cards bleed to the screen edge, snap into place,
+  and the next card peeks in so people know to swipe.
+  Switch back to a grid at a breakpoint, e.g. "rail md:grid md:grid-cols-3 md:rail-off".
+*/
+@utility rail {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 16px;
+  margin-inline: -16px;
+  padding-inline: 16px;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+  & > * { flex: none; scroll-snap-align: start; }
+  /* Match the wider tablet gutter from .wrap */
+  @variant md {
+    margin-inline: -28px;
+    padding-inline: 28px;
+    scroll-padding-inline: 28px;
+  }
+}
+
+/* Undo the rail's bleed and scrolling once it becomes a grid */
+@utility rail-off {
+  overflow-x: visible;
+  scroll-snap-type: none;
+  margin-inline: 0;
+  padding-inline: 0;
+  padding-bottom: 0;
+}
+
+/*
+  Home hero slab row. Phones/tablets: up to 1440px wide.
+  Laptops and up: sized so the whole hero fits the first screen. The tallest slab is 0.368 × the row's
+  content width (1.32 of 5.79 columns after 4 × 1.4% gaps, at a 200:342 ratio), so
+    width = (window height − everything else) × 2.717 + 40px side padding.
+  "Everything else" = top bar + 48 top padding + 60 search + 40 gap + 24 bottom padding:
+  249px at lg (76px bar + border), 261px from xl (88px bar + border).
+*/
+@utility hero-fit {
+  max-width: 1440px;
+  @variant lg {
+    max-width: min(1800px, calc((100svh - 249px) * 2.717 + 40px));
+  }
+  @variant xl {
+    max-width: min(1800px, calc((100svh - 261px) * 2.717 + 40px));
+  }
+}
+
+/* Bigger hit area without changing layout, for small text links */
+@utility tap-area {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -12px -8px;
+  }
+}
+
 @layer base {
   html {
-    scroll-padding-top: 76px;
+    /* Top bar height (64 / 76 / 88px) plus breathing room */
+    scroll-padding-top: 80px;
+    @variant md { scroll-padding-top: 92px; }
+    @variant xl { scroll-padding-top: 104px; }
     -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
   }
+  /* Stops sideways wobble on phones if anything is a few pixels too wide */
+  body { overflow-x: clip; }
   @media (prefers-reduced-motion: no-preference) {
     html { scroll-behavior: smooth; }
   }

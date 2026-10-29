@@ -14,11 +14,11 @@ const photo = (src: string) => GALLERY.find((p) => p.src === src);
   Kitab Dost's speech bubble, in frosted glass. It sits up and to the right of the head,
   clear of the face. The zero-size anchor is the tail tip (77% across, 16% down the image),
   just off the top-right of the head, so the tail points down towards the mouth.
-  The Henglish and Hindi lines are typed out in turn (Typewriter.tsx).
+  The Hinglish greeting and the Hindi tagline are typed out in turn (Typewriter.tsx).
 */
 const BUBBLE_LINES = [
-  { text: "Mai Aapka Kitab Dost", lang: "hi-Latn" },
-  { text: "मैं आपका किताब दोस्त", lang: "hi" },
+  { text: "Mai Hu Aapka Kitab Dost", lang: "hi-Latn" },
+  { text: "साथ जुड़ें साथ पढ़ें", lang: "hi", center: true },
 ];
 
 const glass =
@@ -27,7 +27,7 @@ const glass =
 function SpeechBubble() {
   return (
     <span className="absolute left-[77%] top-[16%] text-[clamp(0.72rem,1vw,0.92rem)]">
-      <span className="sr-only">Mai Aapka Kitab Dost (मैं आपका किताब दोस्त)</span>
+      <span className="sr-only">Mai Hu Aapka Kitab Dost. साथ जुड़ें साथ पढ़ें</span>
       {/* Tail: tip at the anchor, base tucked into the bubble's bottom-left corner */}
       <span
         aria-hidden="true"
@@ -54,7 +54,12 @@ export function Hero() {
   const items = buildSearchIndex();
 
   return (
-    <section aria-labelledby="hero-title" className="relative -mt-[72px] overflow-hidden bg-page-warm pb-12 pt-[104px] md:-mt-20 md:pb-16 md:pt-[128px]">
+    /*
+      Laptops and up: the whole hero (search + slabs + Kitab Dost) fits the first screen.
+      The section fills the window below the top bar (77px at lg, 89px from xl) and centres its content.
+      The slab row's width comes from the window height (see .hero-fit in globals.css).
+    */
+    <section aria-labelledby="hero-title" className="relative overflow-hidden bg-page-warm pb-12 pt-8 md:pb-16 md:pt-12 lg:flex lg:min-h-[calc(100svh-77px)] lg:flex-col lg:justify-center lg:pb-6 xl:min-h-[calc(100svh-89px)]">
       {/* Soft red glow behind the mascot */}
       <span aria-hidden="true" className="pointer-events-none absolute left-1/2 top-[38%] size-[620px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(203,35,35,0.16),transparent_65%)]" />
 
@@ -68,9 +73,9 @@ export function Hero() {
         </Reveal>
       </div>
 
-      <div className="relative mx-auto mt-8 grid max-w-[1440px] grid-cols-2 items-end gap-3 px-4 md:mt-10 md:grid-cols-[1.32fr_1fr_1.15fr_1fr_1.32fr] md:gap-[1.4%] md:px-5">
+      <div className="relative mx-auto mt-6 grid hero-fit w-full grid-cols-2 items-end gap-3 px-4 md:mt-10 md:grid-cols-[1.32fr_1fr_1.15fr_1fr_1.32fr] md:gap-[1.4%] md:px-5">
         {/* Kitab Dost: first on phones, centre column from tablet up */}
-        <div className="relative z-10 col-span-2 mx-auto w-[46%] max-w-[230px] md:order-3 md:col-span-1 md:w-full md:max-w-none md:pb-[2%]">
+        <div className="relative z-10 col-span-2 mx-auto -mb-2 w-[42%] max-w-[210px] md:order-3 md:mb-0 md:col-span-1 md:w-full md:max-w-none md:pb-[2%]">
           <Reveal y={30} delay={0.15}>
             <div className="relative motion-safe:animate-float">
               <Image
@@ -95,18 +100,67 @@ export function Hero() {
             eyebrow={<EventStatusText fallback="Next Kitab Utsav" />}
             title={`${EVENT.city} · ${EVENT.dateShort.replace(" to ", "–").replace("October", "Oct")}`}
             href="/events"
+            back={{
+              text: "Five days of author meets, book launches, poetry, panel talks and a book exhibition.",
+              details: [
+                { icon: "calendar", text: EVENT.dateLabel },
+                { icon: "clock", text: EVENT.hours },
+                { icon: "pin", text: EVENT.venueShort },
+              ],
+              cta: "See the festival",
+            }}
             sizes={OUTER}
             preload
           />
         </Reveal>
         <Reveal className="order-3 md:order-2" delay={0.12} y={40}>
-          <Slab side="left" photo={photo("/gallery/bareilly-2026-019.webp")} eyebrow="Programme" title="Day by day" href="/events" sizes={INNER} />
+          <Slab
+            side="left"
+            photo={photo("/gallery/bareilly-2026-019.webp")}
+            eyebrow="Programme"
+            title="Day by day"
+            href="/events"
+            back={{
+              text: "Every session for all five days: conversations, launches, readings and workshops.",
+              details: [{ icon: "clock", text: EVENT.hoursShort }],
+              cta: "Open programme",
+            }}
+            sizes={INNER}
+          />
         </Reveal>
         <Reveal className="order-4 md:order-4" delay={0.12} y={40}>
-          <Slab side="right" photo={photo("/gallery/bareilly-2025-219.webp")} eyebrow="Gallery" title={`${GALLERY.length} photos`} href="/gallery" sizes={INNER} />
+          <Slab
+            side="right"
+            photo={photo("/gallery/bareilly-2025-219.webp")}
+            eyebrow="Gallery"
+            title={`${GALLERY.length} photos`}
+            href="/gallery"
+            back={{
+              text: "Readings, launches, performances and the book exhibition, from editions across India.",
+              details: [{ icon: "photo", text: `${GALLERY.length} photos` }],
+              cta: "Browse photos",
+            }}
+            sizes={INNER}
+          />
         </Reveal>
         <Reveal className="order-2 md:order-5" delay={0.05} y={40}>
-          <Slab side="right" photo={photo("/gallery/mumbai-2026-191.webp")} eyebrow={EVENT.venueShort.split(",")[0]} title="Book my seat" href="/#book" sizes={OUTER} />
+          <Slab
+            side="right"
+            photo={photo("/gallery/mumbai-2026-191.webp")}
+            eyebrow={EVENT.venueShort.split(",")[0]}
+            title="Book my seat"
+            href="/#book"
+            back={{
+              text: "Tell us which days you plan to come and we'll keep you posted on speakers and sessions.",
+              details: [
+                { icon: "ticketCheck", text: "Pick one day or all five" },
+                { icon: "chat", text: "Updates before your days" },
+                { icon: "pin", text: EVENT.venueShort },
+              ],
+              cta: "Save my seat",
+            }}
+            sizes={OUTER}
+          />
         </Reveal>
       </div>
     </section>

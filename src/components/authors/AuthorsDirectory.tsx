@@ -18,12 +18,12 @@ function initialOf(author: Author) {
 function AuthorPortrait({ author }: { author: Author }) {
   if (!author.photo) {
     return (
-      <span aria-hidden="true" className="grid size-24 place-items-center rounded-full bg-accent-soft text-[2rem] font-semibold text-accent">
+      <span aria-hidden="true" className="grid size-[72px] flex-none place-items-center rounded-full bg-accent-soft text-[1.6rem] font-semibold text-accent md:size-24 md:text-[2rem]">
         {initialOf(author)}
       </span>
     );
   }
-  return <Image src={author.photo} alt={`Portrait of ${author.name}`} width={96} height={96} className="size-24 rounded-full bg-cover-well object-cover grayscale transition-[filter,transform] duration-500 group-hover:scale-[1.04] group-hover:grayscale-0" />;
+  return <Image src={author.photo} alt={`Portrait of ${author.name}`} width={96} height={96} className="size-[72px] flex-none rounded-full bg-cover-well object-cover grayscale md:size-24 transition-[filter,transform] duration-500 group-hover:scale-[1.04] group-hover:grayscale-0" />;
 }
 
 export function AuthorsDirectory({ authors }: { authors: Author[] }) {
@@ -43,13 +43,13 @@ export function AuthorsDirectory({ authors }: { authors: Author[] }) {
   const foundLetters = new Set(authors.map(initialOf));
 
   return (
-    <main className="wrap py-5 md:py-7">
+    <div className="wrap py-4 md:py-7">
       <nav aria-label="Breadcrumb" className="mb-3 text-meta text-ink-muted">
-        <Link href="/" className="no-underline hover:text-accent">Kitab Utsav</Link>
+        <Link href="/" className="tap-area no-underline hover:text-accent">Kitab Utsav</Link>
         <span aria-hidden="true" className="mx-1.5 text-accent">›</span>
         <span aria-current="page" className="text-ink-content">Authors</span>
       </nav>
-      <section className="relative overflow-hidden rounded-hero border border-border-content bg-[radial-gradient(circle_at_78%_10%,var(--color-accent-soft),transparent_30%),linear-gradient(135deg,var(--color-surface-content),var(--color-surface-soft))] px-5 py-7 shadow-card md:px-10 md:py-9">
+      <section className="relative overflow-hidden rounded-hero border border-border-content bg-[radial-gradient(circle_at_78%_10%,var(--color-accent-soft),transparent_30%),linear-gradient(135deg,var(--color-surface-content),var(--color-surface-soft))] px-5 py-6 shadow-card md:px-10 md:py-9">
         <span aria-hidden="true" className="pointer-events-none absolute -right-8 -top-9 size-48 rounded-full border-[20px] border-accent/5" />
         <div className="relative flex items-center gap-4 md:gap-5">
           <span aria-hidden="true" className="grid size-14 place-items-center rounded-card bg-accent-fill text-on-accent shadow-card md:size-16"><Icon name="pen" className="size-7" /></span>
@@ -66,30 +66,30 @@ export function AuthorsDirectory({ authors }: { authors: Author[] }) {
             <p id="directory-title" className="text-eyebrow uppercase text-accent">Find an author</p>
             <p className="mt-1 text-body text-ink-muted">Writers, poets and speakers who have shared a Kitab Utsav stage.</p>
           </div>
-          <button type="button" onClick={() => { setLetter(null); setQuery(""); }} className="cursor-pointer text-[0.86rem] font-semibold text-accent underline underline-offset-[3px] hover:text-accent-hover">Reset filters</button>
+          <button type="button" onClick={() => { setLetter(null); setQuery(""); }} className="tap-area cursor-pointer text-[0.86rem] font-semibold text-accent underline underline-offset-[3px] hover:text-accent-hover">Reset filters</button>
         </div>
 
-        <div role="group" aria-label="Filter authors by first letter" className="no-scrollbar mt-5 flex gap-1.5 overflow-x-auto pb-1">
-          <button type="button" aria-pressed={letter === null} onClick={() => setLetter(null)} className={cn("grid size-9 flex-none cursor-pointer place-items-center rounded-sm border text-[0.78rem] font-semibold transition-colors", letter === null ? "border-accent-fill bg-accent-fill text-on-accent" : "border-border-content bg-surface-content text-ink-content hover:border-accent hover:text-accent")}>All</button>
+        <div role="group" aria-label="Filter authors by first letter" className="no-scrollbar -mx-4 mt-5 flex snap-x gap-1.5 overflow-x-auto scroll-px-4 px-4 pb-1 md:mx-0 md:flex-wrap md:px-0">
+          <button type="button" aria-pressed={letter === null} onClick={() => setLetter(null)} className={cn("grid size-10 flex-none cursor-pointer snap-start place-items-center rounded-sm border md:size-9 text-[0.78rem] font-semibold transition-colors", letter === null ? "border-accent-fill bg-accent-fill text-on-accent" : "border-border-content bg-surface-content text-ink-content hover:border-accent hover:text-accent")}>All</button>
           {LETTERS.map((item) => {
             const available = foundLetters.has(item);
             const active = letter === item;
-            return <button key={item} type="button" disabled={!available} aria-pressed={active} onClick={() => setLetter(item)} className={cn("grid size-9 flex-none place-items-center rounded-sm border text-[0.78rem] font-semibold transition-colors", active ? "border-accent-fill bg-accent-fill text-on-accent" : "border-border-content bg-surface-content text-ink-content hover:border-accent hover:text-accent", !available && "cursor-not-allowed opacity-35")}>{item}</button>;
+            return <button key={item} type="button" disabled={!available} aria-pressed={active} onClick={() => setLetter(item)} className={cn("grid size-10 flex-none snap-start place-items-center rounded-sm border md:size-9 text-[0.78rem] font-semibold transition-colors", active ? "border-accent-fill bg-accent-fill text-on-accent" : "border-border-content bg-surface-content text-ink-content hover:border-accent hover:text-accent", !available && "cursor-not-allowed opacity-35")}>{item}</button>;
           })}
         </div>
 
-        <div className="mt-5 grid gap-3 md:grid-cols-[minmax(0,1fr)_auto]">
-          <label className="flex items-center gap-2.5 rounded-input border border-border-content bg-surface-content px-4 py-3 text-ink-muted shadow-card focus-within:border-accent focus-within:shadow-focus">
-            <Icon name="search" className="size-[19px] text-accent" />
+        <div className="mt-4 grid grid-cols-[minmax(0,1fr)_auto] gap-2.5 md:mt-5 md:gap-3">
+          <label className="flex items-center gap-2.5 rounded-input border border-border-content bg-surface-content px-3.5 py-3 text-ink-muted shadow-card focus-within md:px-4:border-accent focus-within:shadow-focus">
+            <Icon name="search" className="size-[19px] flex-none text-accent" />
             <span className="sr-only">Search authors by name</span>
-            <input value={query} onChange={(event) => setQuery(event.target.value)} type="search" placeholder="Search by name..." className="min-w-0 flex-1 bg-transparent text-input text-ink-content outline-none placeholder:text-ink-muted" />
+            <input value={query} onChange={(event) => setQuery(event.target.value)} type="search" placeholder="Search by name…" className="min-w-0 flex-1 bg-transparent text-[16px] text-ink-content outline-none placeholder:text-ink-muted md:text-input" />
           </label>
-          <label className="flex cursor-pointer items-center gap-2 rounded-input border border-border-content bg-surface-content px-3.5 py-3 text-input font-semibold text-ink-content shadow-card hover:border-accent">
-            <Icon name="directions" className="size-[18px] text-accent" />
+          <label className="flex cursor-pointer items-center gap-2 rounded-input border border-border-content bg-surface-content px-3 py-3 text-[16px] font-semibold md:px-3.5 md:text-input text-ink-content shadow-card hover:border-accent">
+            <Icon name="directions" className="hidden size-[18px] text-accent md:block" />
             <span className="sr-only">Sort authors</span>
-            <select value={sort} onChange={(event) => setSort(event.target.value as Sort)} className="cursor-pointer bg-transparent outline-none">
+            <select value={sort} onChange={(event) => setSort(event.target.value as Sort)} className="max-w-[6.5rem] cursor-pointer bg-transparent outline-none md:max-w-none">
               <option value="az">A–Z</option>
-              <option value="latest">Newest festival first</option>
+              <option value="latest">Newest first</option>
             </select>
           </label>
         </div>
@@ -97,17 +97,19 @@ export function AuthorsDirectory({ authors }: { authors: Author[] }) {
         <p aria-live="polite" className="mt-4 text-[0.88rem] text-ink-muted">Showing <span className="font-semibold text-ink-content">{filtered.length}</span> of {authors.length} authors{letter ? ` whose name starts with ${letter}` : ""}{normalized ? ` matching “${query.trim()}”` : ""}.</p>
 
         {filtered.length ? (
-          <ul className="mt-6 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <ul className="mt-5 grid gap-3 md:mt-6 md:grid-cols-2 md:gap-3.5 lg:grid-cols-3 xl:grid-cols-4">
             {filtered.map((author) => (
               <li key={author.name} id={authorSlug(author)} className="scroll-mt-24">
-                <article className="group flex h-full flex-col items-center rounded-panel border border-border-content bg-surface-content px-5 pb-5 pt-6 text-center text-ink-content shadow-card transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-card-hover">
+                <article className="group flex h-full items-center gap-4 rounded-panel border border-border-content bg-surface-content p-4 text-left text-ink-content md:flex-col md:gap-0 md:px-5 md:pb-5 md:pt-6 md:text-center shadow-card transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-card-hover">
                   <AuthorPortrait author={author} />
-                  <p className="mt-4 text-[1.12rem] font-semibold leading-snug">{author.name}</p>
-                  <p lang="hi" className="mt-0.5 min-h-[1.4em] text-[0.88rem] text-ink-muted">{author.nameHi}</p>
-                  <p className="mt-3 min-h-[2.8em] text-[0.78rem] font-medium leading-[1.4] text-accent">{author.role}</p>
-                  <div className="mt-5 flex w-full items-center justify-between gap-3 border-t border-border-content pt-3.5 text-[0.78rem]">
-                    <span className="inline-flex items-center gap-1.5 text-ink-muted"><Icon name="pin" className="size-3.5 text-accent" /> {author.city} · {author.year}</span>
-                    <Link href={`#${authorSlug(author)}`} className="rounded-pill bg-accent-soft px-2.5 py-1 font-semibold text-accent no-underline transition-colors hover:bg-accent-fill hover:text-on-accent">View profile</Link>
+                  <div className="flex min-w-0 flex-1 flex-col md:w-full md:items-center">
+                    <p className="text-[1.05rem] font-semibold leading-snug md:mt-4 md:text-[1.12rem]">{author.name}</p>
+                    <p lang="hi" className="mt-0.5 text-[0.88rem] text-ink-muted md:min-h-[1.4em]">{author.nameHi}</p>
+                    <p className="mt-1.5 text-[0.8rem] font-medium leading-[1.4] text-accent md:mt-3 md:min-h-[2.8em] md:text-[0.78rem]">{author.role}</p>
+                    <div className="mt-2.5 flex w-full flex-wrap items-center justify-between gap-x-3 gap-y-2 text-[0.78rem] md:mt-5 md:flex-nowrap md:border-t md:border-border-content md:pt-3.5">
+                      <span className="inline-flex items-center gap-1.5 text-ink-muted"><Icon name="pin" className="size-3.5 text-accent" /> {author.city} · {author.year}</span>
+                      <Link href={`#${authorSlug(author)}`} className="tap-area rounded-pill bg-accent-soft px-2.5 py-1 font-semibold text-accent no-underline transition-colors hover:bg-accent-fill hover:text-on-accent">View profile</Link>
+                    </div>
                   </div>
                 </article>
               </li>
@@ -123,6 +125,6 @@ export function AuthorsDirectory({ authors }: { authors: Author[] }) {
           </div>
         )}
       </section>
-    </main>
+    </div>
   );
 }

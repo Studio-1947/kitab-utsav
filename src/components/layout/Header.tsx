@@ -9,72 +9,94 @@ import { cn } from "@/lib/utils";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { ThemeToggle } from "./ThemeToggle";
 
-/* Round icon button used on the right of the nav pill */
+/* Round outlined icon button on the right of the bar */
 export const navIconClass =
-  "relative grid size-9 flex-none cursor-pointer place-items-center rounded-full border border-nav-line bg-nav-btn text-ink no-underline transition-[background-color,border-color,color,transform] duration-200 hover:border-accent hover:text-accent motion-safe:hover:-translate-y-0.5 active:scale-95 md:size-10";
+  "relative grid size-11 flex-none cursor-pointer place-items-center rounded-full border border-bar-btn-line bg-bar-btn text-bar-ink no-underline transition-[background-color,border-color,color,transform] duration-200 hover:border-accent hover:text-accent active:scale-95 xl:size-[46px]";
 
-function IconLink({ href, icon, label, external, download }: { href: string; icon: IconName; label: string; external?: boolean; download?: boolean }) {
-  const common = { "aria-label": label, title: label, className: navIconClass };
+/* Red count bubble on the top-right of an icon button */
+function Badge({ count }: { count: number }) {
+  return (
+    <span aria-hidden="true" className="absolute -right-1 -top-1 grid h-[19px] min-w-[19px] place-items-center rounded-full bg-wish-red px-1 text-[0.68rem] font-semibold leading-none text-white ring-2 ring-page dark:ring-[#1b1210]">
+      {count}
+    </span>
+  );
+}
+
+function IconLink({ href, icon, label, external, download, className, iconClass, badge }: { href: string; icon: IconName; label: string; external?: boolean; download?: boolean; className?: string; iconClass?: string; badge?: number }) {
+  const common = { "aria-label": badge ? `${label} (${badge})` : label, title: label, className: cn(navIconClass, className) };
+  const inner = (
+    <>
+      <Icon name={icon} className={cn("size-5", iconClass)} />
+      {badge ? <Badge count={badge} /> : null}
+    </>
+  );
   if (external || download) {
     return (
       <a href={href} {...common} {...(external ? { target: "_blank", rel: "noopener" } : { download: true })}>
-        <Icon name={icon} className="size-[18px]" />
+        {inner}
       </a>
     );
   }
   return (
     <Link href={href} {...common}>
-      <Icon name={icon} className="size-[18px]" />
+      {inner}
     </Link>
   );
 }
 
+const linkClass =
+  "relative whitespace-nowrap px-3 py-2 text-[1rem] font-medium 2xl:px-3.5 2xl:text-[1.02rem] text-bar-ink no-underline transition-colors duration-200 hover:text-accent " +
+  // Active page: short accent bar under the label
+  "after:absolute after:inset-x-3 after:-bottom-0.5 2xl:after:inset-x-3.5 after:h-0.5 after:origin-center after:scale-x-0 after:rounded-full after:bg-accent after:transition-transform after:duration-300 aria-[current]:after:scale-x-100";
+
 /*
-  Floating pill nav: Rajkamal emblem, page links, and round icon buttons
-  (book a seat, Instagram, add to calendar, theme). Below 1200px the links move to the tab bar.
+  Full-width top bar, after the Rajkamal Prakashan Samuh site:
+  logo on the left, page links centred, round icon buttons on the right.
+  Below 1200px the links move to the bottom tab bar; on phones only calendar + theme stay here.
 */
 export function Header() {
   const scrolled = useScrolled();
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 px-3 pt-3 md:px-5 md:pt-4">
-      <div
-        className={cn(
-          "relative mx-auto flex h-[60px] max-w-[1180px] items-center gap-3 rounded-full border border-nav-line bg-nav-bg pl-2 pr-2 backdrop-blur-xl backdrop-saturate-150 transition-shadow duration-300 md:h-16 md:gap-6 md:pl-2.5 md:pr-2.5",
-          scrolled ? "shadow-lift" : "shadow-card",
-        )}
-      >
-        {/* Faint red glow at the right end, as on the reference */}
-        <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/3 rounded-r-full bg-[radial-gradient(ellipse_at_right,rgba(203,35,35,0.14),transparent_70%)] dark:block" />
+    <header
+      className={cn(
+        "sticky top-0 z-50 border-b border-bar-line bg-bar-bg backdrop-blur-xl backdrop-saturate-150 transition-shadow duration-300",
+        scrolled && "shadow-lift",
+      )}
+    >
+      {/* Soft lift in the middle of the bar, as on the reference */}
+      <span aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_120%_at_50%_0%,var(--color-bar-glow),transparent_70%)]" />
 
-        <Link href="/" className="relative flex flex-none items-center gap-2.5 no-underline" aria-label={`${EVENT.name}, home`}>
-          <span className="grid size-11 place-items-center rounded-full bg-white shadow-card ring-2 ring-logo-red/25 md:size-12">
-            <Image src="/brand/rkp-favicon.svg" alt="" width={64} height={64} priority unoptimized className="size-8 md:size-9" />
-          </span>
-          <span className="text-[1.25rem] font-semibold leading-none text-logo-red dark:text-accent xl:hidden">{EVENT.nameHi}</span>
-        </Link>
+      <div className="relative mx-auto flex h-16 max-w-[1504px] items-center gap-4 px-4 md:h-[76px] md:px-7 xl:h-[88px] xl:px-10">
+        <div className="flex flex-1 basis-0 items-center">
+          <Link href="/" className="flex-none no-underline" aria-label={`${EVENT.name}, home`}>
+            <Image src="/brand/rkp-logo.svg" alt="" width={1257} height={378} priority unoptimized className="h-9 w-auto dark:hidden sm:h-10 md:h-11 xl:h-[50px]" />
+            <Image src="/brand/rkp-logo-dark.svg" alt="" width={1354} height={428} priority unoptimized className="hidden h-9 w-auto dark:block sm:h-10 md:h-11 xl:h-[50px]" />
+          </Link>
+        </div>
 
-        <nav aria-label="Main" className="relative hidden items-center gap-0.5 xl:flex">
+        <nav aria-label="Main" className="hidden items-center gap-1 xl:flex">
           {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              aria-current={pathname === item.href ? "page" : undefined}
-              className="rounded-full px-3 py-2 text-[0.9rem] font-semibold text-ink-content no-underline transition-colors duration-200 hover:bg-nav-btn hover:text-accent aria-[current]:bg-nav-btn aria-[current]:text-accent"
-            >
+            <Link key={item.href} href={item.href} aria-current={pathname === item.href ? "page" : undefined} className={linkClass}>
               {item.label}
             </Link>
           ))}
-          <a href={EVENT.shopUrl} target="_blank" rel="noopener" className="rounded-full px-3 py-2 text-[0.9rem] font-semibold text-ink-content no-underline transition-colors duration-200 hover:bg-nav-btn hover:text-accent">
+          <a href={EVENT.shopUrl} target="_blank" rel="noopener" className={linkClass}>
             Shop books ↗
           </a>
         </nav>
 
-        <div className="relative ml-auto flex items-center gap-1.5 md:gap-2">
-          <IconLink href="/#book" icon="ticket" label="Book my seat" />
-          <IconLink href={EVENT.instagram.href} icon="instagram" label={`Kitab Utsav on Instagram, ${EVENT.instagram.handle}`} external />
-          <IconLink href={EVENT.calendarUrl} icon="calendarPlus" label={`Add Kitab Utsav ${EVENT.city} to your calendar`} download />
+        <div className="flex flex-1 basis-0 items-center justify-end gap-2 sm:gap-2.5">
+          {/*
+            TEMPORARY: shop-style icons (account, WhatsApp, wishlist, cart) copied from the Rajkamal site.
+            Badge counts are placeholders. The festival icons they replace were:
+            Book my seat (/#book, "ticket"), Instagram (EVENT.instagram, "instagram"), Add to calendar (EVENT.calendarUrl, "calendarPlus").
+          */}
+          <IconLink href={EVENT.shopUrl} icon="user" label="My account" external className="hidden md:grid" />
+          <IconLink href="https://wa.me/919810281912" icon="whatsapp" label="Chat on WhatsApp" external className="hidden md:grid" />
+          <IconLink href={EVENT.shopUrl} icon="heart" label="Wishlist" external badge={1} iconClass="fill-current text-wish-red dark:text-[#f6a29c]" />
+          <IconLink href={EVENT.shopUrl} icon="cart" label="Cart" external badge={7} />
           <ThemeToggle className={navIconClass} />
         </div>
       </div>

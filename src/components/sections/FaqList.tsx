@@ -37,12 +37,12 @@ export function FaqList({ faqs }: { faqs: { q: string; a: string }[] }) {
                   aria-expanded={on}
                   aria-controls={panel}
                   onClick={() => setOpen(on ? null : i)}
-                  className="flex w-full cursor-pointer items-center gap-4 bg-transparent px-5 py-5 text-left text-inherit focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent md:px-7"
+                  className="flex w-full cursor-pointer items-center gap-3 bg-transparent px-4 py-4 sm:gap-4 sm:px-5 sm:py-5 text-left text-inherit focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent md:px-7"
                 >
-                  <span aria-hidden="true" className="w-7 flex-none text-[0.85rem] font-semibold tabular-nums text-accent">
+                  <span aria-hidden="true" className="w-6 flex-none text-[0.85rem] sm:w-7 font-semibold tabular-nums text-accent">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="flex-1 text-[1.02rem] font-semibold leading-snug md:text-[1.12rem]">{f.q}</span>
+                  <span className="min-w-0 flex-1 text-[1rem] font-semibold leading-snug md:text-[1.12rem]">{f.q}</span>
                   <span
                     aria-hidden="true"
                     className={cn(
@@ -68,7 +68,7 @@ export function FaqList({ faqs }: { faqs: { q: string; a: string }[] }) {
                 <div className="min-h-0 overflow-hidden">
                   <p
                     className={cn(
-                      "pb-6 pl-16 pr-5 text-[0.95rem] leading-[1.7] text-ink-muted transition-[opacity,translate] duration-500 ease-out motion-reduce:transition-none md:pl-[4.5rem] md:pr-16",
+                      "pb-5 pl-[52px] pr-4 text-[0.95rem] leading-[1.7] sm:pb-6 sm:pl-16 sm:pr-5 text-ink-muted transition-[opacity,translate] duration-500 ease-out motion-reduce:transition-none md:pl-[4.5rem] md:pr-16",
                       on ? "translate-y-0 opacity-100 delay-100" : "-translate-y-1.5 opacity-0",
                     )}
                   >

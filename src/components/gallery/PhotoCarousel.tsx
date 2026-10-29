@@ -186,7 +186,7 @@ export function PhotoCarousel({ photos, label, autoplay = false }: { photos: Gal
                   tabIndex={copy ? -1 : undefined}
                   onClick={() => setOpen(i % photos.length)}
                   aria-label={`Open photo: ${photoAlt(p)}`}
-                  className="group relative block h-[240px] cursor-zoom-in overflow-hidden rounded-card border border-border-content shadow-card focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent md:h-[300px]"
+                  className="group relative block h-[220px] cursor-zoom-in sm:h-[240px] overflow-hidden rounded-card border border-border-content shadow-card focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent md:h-[300px]"
                   style={{ backgroundColor: p.color, aspectRatio: `${Math.min(Math.max(p.w / p.h, 0.75), 1.5)}` }}
                 >
                   <Image
@@ -198,7 +198,7 @@ export function PhotoCarousel({ photos, label, autoplay = false }: { photos: Gal
                     className="pointer-events-none object-cover"
                     style={{ objectPosition: focusOf(p.src) }}
                   />
-                  <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-[linear-gradient(transparent,rgba(20,8,5,0.8))] px-3 pb-2.5 pt-8 text-left text-[0.66rem] font-semibold uppercase tracking-[0.1em] text-gold">
+                  <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-[linear-gradient(transparent,rgba(20,8,5,0.8))] px-3 pb-2.5 pt-8 text-left text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-gold">
                     {groupLabel(p.edition)}
                   </span>
                 </button>

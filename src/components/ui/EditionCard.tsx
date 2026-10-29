@@ -21,7 +21,7 @@ export function EditionCard({ edition }: { edition: Edition }) {
       )}
     >
       {cover && (
-        <Link href={`/gallery#${edition.slug}`} className="relative block h-[180px] overflow-hidden" style={{ backgroundColor: cover.color }} tabIndex={-1} aria-hidden="true">
+        <Link href={`/gallery#${edition.slug}`} className="relative block h-[160px] overflow-hidden md:h-[180px]" style={{ backgroundColor: cover.color }} tabIndex={-1} aria-hidden="true">
           <Image
             src={cover.src}
             alt={photoAlt(cover)}
@@ -34,7 +34,7 @@ export function EditionCard({ edition }: { edition: Edition }) {
         </Link>
       )}
 
-      <div className="relative flex flex-1 flex-col p-5 md:p-6">
+      <div className="relative flex flex-1 flex-col p-4 sm:p-5 md:p-6">
         <span aria-hidden="true" className={cn("pointer-events-none absolute right-4 select-none text-[4.2rem] font-semibold leading-none tabular-nums text-gold opacity-40 dark:opacity-15", cover ? "-top-14 text-white opacity-80 dark:opacity-60" : "top-1")}>
           {edition.year}
         </span>
@@ -48,11 +48,11 @@ export function EditionCard({ edition }: { edition: Edition }) {
         >
           {edition.upcoming ? "Upcoming" : "Past edition"}
         </span>
-        <h3 className="relative mt-3 text-[1.6rem] font-semibold leading-tight">{edition.city}</h3>
+        <h3 className="relative mt-3 text-[1.45rem] font-semibold leading-tight md:text-[1.6rem]">{edition.city}</h3>
         <p className="relative mt-1 text-[0.95rem] font-semibold text-accent">{edition.dates}</p>
         {edition.venue && <p className="relative mt-4 min-h-[3em] max-w-[34ch] text-[0.86rem] leading-normal text-ink-muted">{edition.venue}</p>}
         {count > 0 && (
-          <Link href={`/gallery#${edition.slug}`} className="relative mt-auto inline-flex items-center gap-1.5 self-start pt-5 text-[0.88rem] font-semibold text-accent no-underline hover:underline hover:underline-offset-[3px]">
+          <Link href={`/gallery#${edition.slug}`} className="tap-area relative mt-auto inline-flex items-center gap-1.5 self-start pt-5 text-[0.88rem] font-semibold text-accent no-underline hover:underline hover:underline-offset-[3px]">
             <Icon name="photo" className="size-4" /> {count} photos →
           </Link>
         )}

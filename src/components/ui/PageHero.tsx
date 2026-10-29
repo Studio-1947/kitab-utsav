@@ -20,7 +20,7 @@ export function PageHero({
     <div className="wrap pt-4 md:pt-7">
       <section
         className={cn(
-          "relative overflow-hidden rounded-hero border border-border-content bg-surface-soft px-5 pb-7 pt-6 md:px-9 md:pb-9 md:pt-10",
+          "relative overflow-hidden rounded-hero border border-border-content bg-surface-soft px-5 pb-6 pt-5 md:px-9 md:pb-9 md:pt-10",
           className,
         )}
       >
@@ -29,13 +29,13 @@ export function PageHero({
           उत्सव
         </span>
         <nav aria-label="Breadcrumb" className="relative mb-3 text-meta text-ink-muted">
-          <Link href="/" className="no-underline hover:text-accent">Kitab Utsav</Link>
+          <Link href="/" className="tap-area no-underline hover:text-accent">Kitab Utsav</Link>
           <span aria-hidden="true" className="mx-1.5 text-accent">›</span>
           <span aria-current="page">{crumb}</span>
         </nav>
         {eyebrow && <p className="relative mb-2 text-eyebrow uppercase text-accent">{eyebrow}</p>}
         <h1 className="relative mb-2.5 text-balance text-[clamp(1.8rem,3.5vw,2.6rem)] font-semibold leading-[1.2] text-ink-content">{title}</h1>
-        {children && <div className="relative max-w-[68ch] text-lead text-ink-muted">{children}</div>}
+        {children && <div className="relative max-w-[68ch] text-[1rem] leading-[1.6] text-ink-muted md:text-lead">{children}</div>}
       </section>
     </div>
   );
