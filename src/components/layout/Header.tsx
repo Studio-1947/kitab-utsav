@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { EVENT, NAV } from "@/data/event";
+import { EVENT } from "@/data/event";
 import { useScrolled } from "@/hooks/useBrowserState";
 import { cn } from "@/lib/utils";
 import { Icon, type IconName } from "@/components/ui/Icon";
@@ -49,6 +49,15 @@ const linkClass =
   // Active page: short accent bar under the label
   "after:absolute after:inset-x-3 after:-bottom-0.5 2xl:after:inset-x-3.5 after:h-0.5 after:origin-center after:scale-x-0 after:rounded-full after:bg-accent after:transition-transform after:duration-300 aria-[current]:after:scale-x-100";
 
+const DESKTOP_NAV = [
+  { href: EVENT.shopUrl, label: "All Books", external: true, menu: true },
+  { href: "/authors", label: "Authors", external: false, menu: false },
+  { href: EVENT.shopUrl, label: "E-Books", external: true, menu: false },
+  { href: EVENT.shopUrl, label: "Publications", external: true, menu: true },
+  { href: EVENT.shopUrl, label: "Catalogue", external: true, menu: false },
+  { href: "/events", label: "Events", external: false, menu: false },
+] as const;
+
 /*
   Full-width top bar, after the Rajkamal Prakashan Samuh site:
   logo on the left, page links centred, round icon buttons on the right.
@@ -79,14 +88,19 @@ export function Header() {
         </div>
 
         <nav aria-label="Main" className="hidden items-center gap-1 xl:flex">
-          {NAV.map((item) => (
-            <Link key={item.href} href={item.href} aria-current={pathname === item.href ? "page" : undefined} className={linkClass}>
-              {item.label}
-            </Link>
-          ))}
-          <a href={EVENT.shopUrl} target="_blank" rel="noopener" className={linkClass}>
-            Shop books ↗
-          </a>
+          {DESKTOP_NAV.map((item) => {
+            const content = (
+              <span className="inline-flex items-center gap-1">
+                {item.label}
+                {item.menu ? <Icon name="chevron" aria-hidden="true" className="size-3 translate-y-px [stroke-width:2.5]" /> : null}
+              </span>
+            );
+            return item.external ? (
+              <a key={item.label} href={item.href} target="_blank" rel="noopener" className={linkClass}>{content}</a>
+            ) : (
+              <Link key={item.label} href={item.href} aria-current={pathname === item.href ? "page" : undefined} className={linkClass}>{content}</Link>
+            );
+          })}
         </nav>
 
         <div className="flex flex-1 basis-0 items-center justify-end gap-2 sm:gap-2.5">
