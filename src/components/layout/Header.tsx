@@ -71,8 +71,8 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-bar-line bg-bar-bg backdrop-blur-xl backdrop-saturate-150 transition-shadow duration-300",
-        pathname === "/" && "max-md:border-transparent max-md:bg-[#1b0e0a] max-md:text-[#fff4ed]",
+        "sticky top-0 z-50 backdrop-blur-xl backdrop-saturate-150 transition-shadow duration-300",
+        pathname === "/" ? "bg-page-warm max-md:border-transparent max-md:bg-[#1b0e0a] max-md:text-[#fff4ed]" : "bg-bar-bg",
         scrolled && "shadow-lift",
       )}
     >
