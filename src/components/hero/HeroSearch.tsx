@@ -131,7 +131,7 @@ export function HeroSearch({ items }: { items: SearchItem[] }) {
   return (
     <form
       role="search"
-      className="relative mx-auto w-full max-w-[440px]"
+      className="relative mx-auto w-full max-w-[440px] max-md:max-w-none"
       onSubmit={(e) => {
         e.preventDefault();
         if (results[active]) go(results[active]);
@@ -139,8 +139,8 @@ export function HeroSearch({ items }: { items: SearchItem[] }) {
       }}
     >
       {/* Pill: search icon, field, mic (outlined) and go (filled) */}
-      <div className="flex h-[58px] items-center gap-2 rounded-pill border border-hero-line bg-hero-glass pl-5 pr-[5px] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-md transition-[border-color,box-shadow] duration-200 focus-within:border-accent focus-within:shadow-[0_0_0_4px_var(--rk-accent-soft)] dark:bg-white/[0.04] md:h-[60px]">
-        <Icon name="search" className="size-5 flex-none text-hero-muted" />
+      <div className="flex h-[58px] items-center gap-2 rounded-pill border border-hero-line bg-hero-glass pl-5 pr-[5px] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-md transition-[border-color,box-shadow] duration-200 focus-within:border-accent focus-within:shadow-[0_0_0_4px_var(--rk-accent-soft)] max-md:h-[54px] max-md:border-white/15 max-md:bg-white/[0.05] max-md:pl-4 max-md:pr-[5px] dark:bg-white/[0.04] md:h-[60px]">
+        <Icon name="search" className="size-5 flex-none text-hero-muted max-md:text-[#cdb9ae]" />
         <label htmlFor={`${id}-q`} className="sr-only">
           Search authors, festivals and sessions
         </label>
@@ -172,11 +172,11 @@ export function HeroSearch({ items }: { items: SearchItem[] }) {
                 setQuery("");
               }
             }}
-            className="h-full w-full min-w-0 bg-transparent pl-1 text-[16px] text-hero-ink outline-none md:text-[1.02rem] [&::-webkit-search-cancel-button]:hidden"
+            className="h-full w-full min-w-0 bg-transparent pl-1 text-[16px] text-hero-ink outline-none max-md:text-[#f7e8da] md:text-[1.02rem] [&::-webkit-search-cancel-button]:hidden"
           />
           {/* Animated placeholder, shown while the field is empty */}
           {!query && (
-            <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-1 flex items-center whitespace-nowrap text-[16px] text-hero-muted md:text-[1.02rem]">
+            <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-1 flex items-center whitespace-nowrap text-[16px] text-hero-muted max-md:text-[#a8968c] md:text-[1.02rem]">
               <RotatingHint listening={listening} />
             </span>
           )}
@@ -189,7 +189,7 @@ export function HeroSearch({ items }: { items: SearchItem[] }) {
             aria-label={listening ? "Stop voice search" : "Search by voice"}
             title={listening ? "Stop voice search" : "Search by voice"}
             className={cn(
-              "grid size-[38px] flex-none cursor-pointer place-items-center rounded-full border text-hero-muted transition-[border-color,color,background-color,transform] duration-200 hover:border-accent hover:text-accent active:scale-95",
+              "grid size-[38px] flex-none cursor-pointer place-items-center rounded-full border text-hero-muted transition-[border-color,color,background-color,transform] duration-200 hover:border-accent hover:text-accent active:scale-95 max-md:border-white/20 max-md:text-[#f7e8da]",
               listening ? "border-accent bg-accent-soft text-accent motion-safe:animate-pulse" : "border-hero-line",
             )}
           >
@@ -200,7 +200,7 @@ export function HeroSearch({ items }: { items: SearchItem[] }) {
           type="submit"
           aria-label="Search"
           title="Search"
-          className="grid size-12 flex-none cursor-pointer place-items-center rounded-full bg-accent-fill text-on-accent shadow-[0_6px_16px_-6px_rgba(160,54,31,0.6)] transition-[background-color,transform] duration-200 hover:bg-accent-hover active:scale-95"
+          className="grid size-12 flex-none cursor-pointer place-items-center rounded-full bg-accent-fill text-on-accent shadow-[0_6px_16px_-6px_rgba(160,54,31,0.6)] transition-[background-color,transform] duration-200 hover:bg-accent-hover active:scale-95 max-md:size-11 max-md:bg-[#f08c78] max-md:text-[#2a120c] max-md:shadow-none"
         >
           <Icon name="arrowRight" className="size-5 [stroke-width:2.25]" />
         </button>

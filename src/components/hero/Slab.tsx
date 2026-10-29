@@ -21,23 +21,23 @@ const PH = 168; // photo panel
 const PSLOPE = 30;
 const PR = 28;
 
-function slopedPath(w: number, h: number, slope: number, r: number) {
+function slopedPath(w: number, h: number, slope: number, r: number, bottomRadius = r) {
   const len = Math.hypot(w, slope);
   const ux = (w / len) * r;
   const uy = (slope / len) * r;
-  return `M0 ${r}Q0 0 ${ux} ${uy}L${w - ux} ${slope - uy}Q${w} ${slope} ${w} ${slope + r}L${w} ${h - r}Q${w} ${h} ${w - r} ${h}L${r} ${h}Q0 ${h} 0 ${h - r}Z`;
+  return `M0 ${r}Q0 0 ${ux} ${uy}L${w - ux} ${slope - uy}Q${w} ${slope} ${w} ${slope + r}L${w} ${h - bottomRadius}Q${w} ${h} ${w - bottomRadius} ${h}L${bottomRadius} ${h}Q0 ${h} 0 ${h - bottomRadius}Z`;
 }
 
-function mask(w: number, h: number, slope: number, r: number, mirror: boolean) {
+function mask(w: number, h: number, slope: number, r: number, mirror: boolean, bottomRadius = r) {
   const flip = mirror ? ` transform="matrix(-1 0 0 1 ${w} 0)"` : "";
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}"><path${flip} d="${slopedPath(w, h, slope, r)}"/></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><path${flip} d="${slopedPath(w, h, slope, r, bottomRadius)}"/></svg>`;
   const url = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
   return { maskImage: url, WebkitMaskImage: url, maskSize: "100% 100%", WebkitMaskSize: "100% 100%", maskRepeat: "no-repeat", WebkitMaskRepeat: "no-repeat" } as const;
 }
 
 const SHAPES = {
-  left: { card: mask(W, H, SLOPE, R, false), panel: mask(PW, PH, PSLOPE, PR, false) },
-  right: { card: mask(W, H, SLOPE, R, true), panel: mask(PW, PH, PSLOPE, PR, true) },
+  left: { card: mask(W, H, SLOPE, R, false), panel: mask(PW, PH, PSLOPE, PR, false), photo: mask(W, H, SLOPE, R, false, 0) },
+  right: { card: mask(W, H, SLOPE, R, true), panel: mask(PW, PH, PSLOPE, PR, true), photo: mask(W, H, SLOPE, R, true, 0) },
 };
 
 /* What the back of a slab shows when it flips over */
@@ -56,6 +56,7 @@ export type SlabBack = {
 export function Slab({
   side,
   photo,
+  imageFit = "cover",
   eyebrow,
   title,
   href,
@@ -65,7 +66,8 @@ export function Slab({
   preload,
 }: {
   side: "left" | "right";
-  photo?: GalleryPhoto;
+  photo?: GalleryPhoto | { src: string; alt: string; objectPosition?: string };
+  imageFit?: "cover" | "contain";
   eyebrow: ReactNode;
   title: ReactNode;
   href: string;
@@ -84,7 +86,7 @@ export function Slab({
     <Link
       href={href}
       className={cn(
-        "group @container relative block aspect-[200/308] w-full no-underline [perspective:1400px] md:aspect-[200/342] drop-shadow-[0_18px_28px_rgba(40,6,6,0.35)] transition-transform duration-500 ease-nav motion-safe:hover:-translate-y-2 focus-visible:outline-none",
+        "group @container relative block aspect-[200/308] w-full no-underline [perspective:1400px] max-md:aspect-[200/210] md:aspect-[200/342] drop-shadow-[0_18px_28px_rgba(40,6,6,0.35)] transition-transform duration-500 ease-nav motion-safe:hover:-translate-y-2 focus-visible:outline-none",
         className,
       )}
     >
@@ -93,28 +95,28 @@ export function Slab({
         <span className="absolute inset-0 [backface-visibility:hidden]">
           <span className="absolute inset-0 bg-[linear-gradient(170deg,#7d1818_0%,#6a1212_55%,#5a0f0f_100%)]" style={shape.card} />
 
-          {/* Photo panel, inset near the top with the same slope */}
-          <span className="absolute left-[6%] right-[6%] top-[4.2%] aspect-[176/168] overflow-hidden bg-slab-face" style={shape.panel}>
+          {/* Full-height photo area: it follows the card's outer slope and ends right above the caption. */}
+          <span className="absolute left-[3%] right-[3%] top-[3%] bottom-[19%] overflow-hidden bg-slab-face max-md:bottom-[23%]" style={shape.photo}>
             {photo && (
               <Image
                 src={photo.src}
-                alt={photoAlt(photo)}
+                alt={"alt" in photo ? photo.alt : photoAlt(photo)}
                 fill
                 sizes={sizes}
                 preload={preload}
-                className="object-cover"
-                style={{ objectPosition: focusOf(photo.src) }}
+                className={imageFit === "contain" ? "object-contain" : "object-cover"}
+                style={{ objectPosition: "objectPosition" in photo ? photo.objectPosition : focusOf(photo.src) }}
               />
             )}
             <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(156,23,23,0.05)_40%,rgba(110,18,18,0.55))]" />
           </span>
 
           {/* Caption */}
-          <span className="absolute inset-x-[9%] bottom-[7%] flex flex-col gap-[0.35em] text-left text-[clamp(0.82rem,3.6vw,0.95rem)] text-white md:text-[clamp(0.7rem,1.05vw,0.95rem)]">
-            <span className="line-clamp-2 text-[max(0.66rem,0.72em)] font-semibold uppercase tracking-[0.08em] text-gold md:tracking-[0.1em]">{eyebrow}</span>
-            <span className="flex items-center justify-between gap-2 text-[1.35em] font-semibold leading-tight">
+          <span className="absolute inset-x-[9%] bottom-[7%] flex flex-col gap-[0.35em] text-left text-[clamp(0.82rem,3.6vw,0.95rem)] text-white max-md:inset-x-[6%] max-md:bottom-[7%] max-md:gap-[0.3em] max-md:text-[0.95rem] md:text-[clamp(0.7rem,1.05vw,0.95rem)]">
+            <span className="line-clamp-2 text-[max(0.66rem,0.72em)] font-semibold uppercase tracking-[0.08em] text-gold max-md:text-[0.7rem] md:tracking-[0.1em]">{eyebrow}</span>
+            <span className="flex items-center justify-between gap-2 text-[1.35em] font-semibold leading-tight max-md:text-[1.3rem]">
               {title}
-              <span aria-hidden="true" className="grid size-[1.6em] flex-none place-items-center rounded-full bg-white/12 text-[0.8em] transition-[background-color,transform] duration-300 group-hover:translate-x-0.5 group-hover:bg-gold group-hover:text-slab">
+              <span aria-hidden="true" className="grid size-[1.6em] flex-none place-items-center rounded-full bg-white/12 text-[0.8em] max-md:size-8 max-md:border max-md:border-white/60 max-md:bg-transparent max-md:text-[0.95rem] max-md:font-normal transition-[background-color,transform] duration-300 group-hover:translate-x-0.5 group-hover:bg-gold group-hover:text-slab">
                 →
               </span>
             </span>
@@ -138,7 +140,7 @@ export function Slab({
               <span className="line-clamp-2 text-[0.74em] font-semibold uppercase tracking-[0.1em] text-gold">{eyebrow}</span>
               <span className="mt-[0.35em] text-[1.4em] font-semibold leading-tight">{title}</span>
               <span className="mt-[0.4em] block h-0.5 w-[2.2em] rounded-full bg-gold" />
-              <span className="mt-[0.8em] text-[0.92em] leading-[1.5] text-white/85">{back.text}</span>
+              <span className="mt-[0.8em] min-h-0 overflow-y-auto whitespace-pre-line pr-[0.2em] text-[0.92em] leading-[1.5] text-white/85">{back.text}</span>
               {back.details && (
                 <span className="mt-[0.9em] flex flex-col gap-[0.45em] text-[0.84em] text-white/90">
                   {back.details.map((d) => (

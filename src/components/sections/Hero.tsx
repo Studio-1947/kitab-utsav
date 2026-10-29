@@ -5,20 +5,15 @@ import { buildSearchIndex } from "@/lib/search";
 import { HeroSearch } from "@/components/hero/HeroSearch";
 import { Slab } from "@/components/hero/Slab";
 import { Typewriter } from "@/components/hero/Typewriter";
+import { HeroCarousel } from "@/components/hero/HeroCarousel";
+import { EventStatusText } from "@/components/sections/EventStatus";
 import { Reveal } from "@/components/ui/Reveal";
-import { EventStatusText } from "./EventStatus";
 
-const photo = (src: string) => GALLERY.find((p) => p.src === src);
+const photo = (src: string) => GALLERY.find((item) => item.src === src);
 
-/*
-  Kitab Dost's speech bubble, in frosted glass. It sits up and to the right of the head,
-  clear of the face. The zero-size anchor is the tail tip (77% across, 16% down the image),
-  just off the top-right of the head, so the tail points down towards the mouth.
-  The Hinglish greeting and the Hindi tagline are typed out in turn (Typewriter.tsx).
-*/
 const BUBBLE_LINES = [
   { text: "Mai Hu Aapka Kitab Dost", lang: "hi-Latn" },
-  { text: "साथ जुड़ें साथ पढ़ें", lang: "hi", center: true },
+  { text: "साथ जुड़ें, साथ पढ़ें", lang: "hi", center: true },
 ];
 
 const glass =
@@ -27,8 +22,7 @@ const glass =
 function SpeechBubble() {
   return (
     <span className="absolute left-[77%] top-[16%] text-[clamp(0.72rem,1vw,0.92rem)]">
-      <span className="sr-only">Mai Hu Aapka Kitab Dost. साथ जुड़ें साथ पढ़ें</span>
-      {/* Tail: tip at the anchor, base tucked into the bubble's bottom-left corner */}
+      <span className="sr-only">Mai Hu Aapka Kitab Dost. साथ जुड़ें, साथ पढ़ें</span>
       <span
         aria-hidden="true"
         className="absolute bottom-0 left-0 size-[1.9em] bg-[linear-gradient(135deg,rgba(244,206,190,0.85),rgba(236,190,172,0.7))] backdrop-blur-xl [clip-path:polygon(0_100%,46%_8%,92%_54%)] dark:bg-[linear-gradient(135deg,rgba(255,255,255,0.16),rgba(255,255,255,0.1))]"
@@ -43,38 +37,90 @@ function SpeechBubble() {
   );
 }
 
-const OUTER ="(max-width: 767px) 45vw, 22vw";
+
+/* Phone speech bubble: sits left of Kitab Dost, grows as the line types, tail points at the mascot */
+function PhoneBubble() {
+  return (
+    <span className="absolute left-4 top-[30px] z-10 text-[0.95rem]">
+      <span className="sr-only">Mai Hu Aapka Kitab Dost. साथ जुड़ें, साथ पढ़ें</span>
+      <span aria-hidden="true" className="relative block w-max max-w-[44vw] rounded-[18px] border border-white/15 bg-[#3a2a25] px-4 py-2.5 font-semibold leading-snug text-white shadow-[0_10px_30px_rgba(0,0,0,0.35)]">
+        <Typewriter lines={BUBBLE_LINES} fit />
+        <span className="absolute -bottom-[7px] right-[22%] size-3.5 rotate-45 border-b border-r border-white/15 bg-[#3a2a25]" />
+      </span>
+    </span>
+  );
+}
+
+/* Phone hero, after the app design: mascot with bubble, search pill, then a swipe row of slabs */
+function PhoneHero({ items }: { items: ReturnType<typeof buildSearchIndex> }) {
+  return (
+    <div className="relative md:hidden">
+      <span aria-hidden="true" className="pointer-events-none absolute left-[58%] top-0 size-[380px] -translate-x-1/2 -translate-y-[18%] rounded-full bg-[radial-gradient(circle,rgba(203,35,35,0.28),transparent_62%)]" />
+
+      <div className="relative h-[258px] pt-3">
+        <PhoneBubble />
+        <div className="relative mx-auto w-[148px] translate-x-[34px] motion-safe:animate-float">
+          <Image
+            src="/hero/kitabdost.png"
+            alt="Kitab Dost, the Kitab Utsav mascot, greeting you with folded hands and a bag of books"
+            width={852}
+            height={1400}
+            priority
+            unoptimized
+            className="h-auto w-full select-none"
+            draggable={false}
+          />
+        </div>
+      </div>
+
+      <div className="relative z-20 px-4">
+        <HeroSearch items={items} />
+      </div>
+
+      <div className="relative mt-3">
+        <HeroCarousel>
+          <Slab
+            side="left"
+            photo={photo("/gallery/bareilly-2026-002.webp")}
+            eyebrow={<EventStatusText fallback="Next Kitab Utsav" />}
+            title={`${EVENT.city} · ${EVENT.dateShort.replace(" to ", "–").replace("October", "Oct")}`}
+            href="/events"
+            sizes={PHONE}
+            preload
+          />
+          <Slab side="right" photo={photo("/gallery/bareilly-2026-019.webp")} eyebrow="Programme" title="Day by day" href="/events" sizes={PHONE} />
+          <Slab side="left" photo={photo("/gallery/bareilly-2025-219.webp")} eyebrow="Gallery" title={`${GALLERY.length} photos`} href="/gallery" sizes={PHONE} />
+          <Slab side="right" photo={photo("/gallery/mumbai-2026-191.webp")} eyebrow={EVENT.venueShort.split(",")[0]} title="Book my seat" href="/#book" sizes={PHONE} />
+        </HeroCarousel>
+      </div>
+    </div>
+  );
+}
+
+const PHONE = "62vw";
+const OUTER = "(max-width: 767px) 45vw, 22vw";
 const INNER = "(max-width: 767px) 45vw, 17vw";
 
-/*
-  Hero: search pill, then four red slabs angled towards Kitab Dost, the festival mascot.
-  Outer slabs are taller; every slab sits on the same baseline.
-*/
 export function Hero() {
   const items = buildSearchIndex();
 
   return (
-    /*
-      Laptops and up: the whole hero (search + slabs + Kitab Dost) fits the first screen.
-      The section fills the window below the top bar (77px at lg, 89px from xl) and centres its content.
-      The slab row's width comes from the window height (see .hero-fit in globals.css).
-    */
-    <section aria-labelledby="hero-title" className="relative overflow-hidden bg-page-warm pb-12 pt-8 md:pb-16 md:pt-12 lg:flex lg:min-h-[calc(100svh-77px)] lg:flex-col lg:justify-center lg:pb-6 xl:min-h-[calc(100svh-89px)]">
-      {/* Soft red glow behind the mascot */}
-      <span aria-hidden="true" className="pointer-events-none absolute left-1/2 top-[38%] size-[620px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(203,35,35,0.16),transparent_65%)]" />
+    <section aria-labelledby="hero-title" className="relative overflow-hidden bg-page-warm pb-12 pt-8 max-md:bg-[#1b0e0a] max-md:pb-6 max-md:pt-0 md:pb-16 md:pt-12 lg:flex lg:min-h-[calc(100svh-77px)] lg:flex-col lg:justify-center lg:pb-6 xl:min-h-[calc(100svh-89px)]">
+      <span aria-hidden="true" className="pointer-events-none absolute left-1/2 top-[38%] size-[620px] max-md:hidden -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(203,35,35,0.16),transparent_65%)]" />
 
       <h1 id="hero-title" className="sr-only">
         {EVENT.name} {EVENT.city}, {EVENT.dateLabel}, {EVENT.venueShort}
       </h1>
 
-      <div className="relative px-4">
+      <PhoneHero items={items} />
+
+      <div className="relative px-4 max-md:hidden">
         <Reveal y={14}>
           <HeroSearch items={items} />
         </Reveal>
       </div>
 
-      <div className="relative mx-auto mt-6 grid hero-fit w-full grid-cols-2 items-end gap-3 px-4 md:mt-10 md:grid-cols-[1.32fr_1fr_1.15fr_1fr_1.32fr] md:gap-[1.4%] md:px-5">
-        {/* Kitab Dost: first on phones, centre column from tablet up */}
+      <div className="relative mx-auto mt-6 grid hero-fit w-full grid-cols-2 items-end gap-3 px-4 max-md:hidden md:mt-10 md:grid-cols-[1.32fr_1fr_1.15fr_1fr_1.32fr] md:gap-[1.4%] md:px-5">
         <div className="relative z-10 col-span-2 mx-auto -mb-2 w-[42%] max-w-[210px] md:order-3 md:mb-0 md:col-span-1 md:w-full md:max-w-none md:pb-[2%]">
           <Reveal y={30} delay={0.15}>
             <div className="relative motion-safe:animate-float">
@@ -84,7 +130,7 @@ export function Hero() {
                 width={852}
                 height={1400}
                 loading="lazy"
-                unoptimized // served as the lossless PNG; the optimizer's re-compression softened it
+                unoptimized
                 className="h-auto w-full select-none"
                 draggable={false}
               />
@@ -93,57 +139,62 @@ export function Hero() {
           </Reveal>
         </div>
 
-        <Reveal className="order-1 md:order-1" delay={0.05} y={40}>
+        <Reveal className="order-2 md:order-1" delay={0.05} y={40}>
           <Slab
             side="left"
-            photo={photo("/gallery/bareilly-2026-002.webp")}
-            eyebrow={<EventStatusText fallback="Next Kitab Utsav" />}
-            title={`${EVENT.city} · ${EVENT.dateShort.replace(" to ", "–").replace("October", "Oct")}`}
-            href="/events"
+            photo={{ src: "/newcontainerimg.jpg", alt: "Kitab Teras, 11 to 22 October" }}
+            eyebrow="किताब टेरेस"
+            title="11–22 अक्टूबर"
+            href={EVENT.shopUrl}
             back={{
-              text: "Five days of author meets, book launches, poetry, panel talks and a book exhibition.",
-              details: [
-                { icon: "calendar", text: EVENT.dateLabel },
-                { icon: "clock", text: EVENT.hours },
-                { icon: "pin", text: EVENT.venueShort },
-              ],
-              cta: "See the festival",
+              text: "किताबों, पाठकों और बातचीत के साथ किताब टेरेस में आपका स्वागत है।",
+              details: [{ icon: "calendar", text: "11 से 22 अक्टूबर" }],
+              cta: "पुस्तकें देखें",
             }}
             sizes={OUTER}
             preload
           />
         </Reveal>
+
         <Reveal className="order-3 md:order-2" delay={0.12} y={40}>
           <Slab
             side="left"
-            photo={photo("/gallery/bareilly-2026-019.webp")}
-            eyebrow="Programme"
-            title="Day by day"
+            photo={{ src: "/newbook.jpg", alt: "कोई एक सौदा कार्यक्रम का पोस्टर" }}
+            eyebrow="बातचीत"
+            title="कोई एक सौदा"
             href="/events"
             back={{
-              text: "Every session for all five days: conversations, launches, readings and workshops.",
-              details: [{ icon: "clock", text: EVENT.hoursShort }],
-              cta: "Open programme",
+              text: "नेहा दीक्षित की बहुचर्चित किताब ‘कोई एक सौदा’ पर बातचीत। लेखक-पत्रकार नेहा दीक्षित से बातचीत करेंगे लेखक-पत्रकार पुष्यमित्र।",
+              details: [
+                { icon: "calendar", text: "सोमवार, 21 सितम्बर 2026 · 5:00–6:30 pm" },
+                { icon: "pin", text: "राजकमल प्रकाशन, पटना" },
+              ],
+              cta: "कार्यक्रम देखें",
             }}
             sizes={INNER}
           />
         </Reveal>
-        <Reveal className="order-4 md:order-4" delay={0.12} y={40}>
+
+        <Reveal className="order-4 hidden md:order-4 md:block" delay={0.12} y={40}>
           <Slab
             side="right"
-            photo={photo("/gallery/bareilly-2025-219.webp")}
-            eyebrow="Gallery"
-            title={`${GALLERY.length} photos`}
-            href="/gallery"
+            photo={{ src: "/gangster.jpg", alt: "मेरी माँ मेरी गैंगस्टर कार्यक्रम का पोस्टर" }}
+            eyebrow="लोकार्पण • बातचीत"
+            title="मेरी माँ मेरी गैंगस्टर"
+            href="/events"
             back={{
-              text: "Readings, launches, performances and the book exhibition, from editions across India.",
-              details: [{ icon: "photo", text: `${GALLERY.length} photos` }],
-              cta: "Browse photos",
+              text: "अरुंधति रॉय की किताब ‘मदर मेरी कम्स टू मी’ के हिन्दी संस्करण ‘मेरी माँ मेरी गैंगस्टर’ का लोकार्पण और बातचीत। इसका हिन्दी अनुवाद प्रभात मिलिंद ने किया है।",
+              details: [
+                { icon: "calendar", text: "शनिवार, 18 जुलाई 2026 · 6:00–7:30 pm" },
+                { icon: "pin", text: "पटना, बिहार" },
+              ],
+              cta: "कार्यक्रम देखें",
             }}
             sizes={INNER}
           />
         </Reveal>
-        <Reveal className="order-2 md:order-5" delay={0.05} y={40}>
+
+        <Reveal className="order-5 hidden md:order-5 md:block" delay={0.05} y={40}>
           <Slab
             side="right"
             photo={photo("/gallery/mumbai-2026-191.webp")}

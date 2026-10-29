@@ -57,22 +57,24 @@ const linkClass =
 export function Header() {
   const scrolled = useScrolled();
   const pathname = usePathname();
+  const homeMobileIcon = pathname === "/" ? "max-md:border-white/20 max-md:bg-white/[0.04] max-md:text-white" : "";
 
   return (
     <header
       className={cn(
         "sticky top-0 z-50 border-b border-bar-line bg-bar-bg backdrop-blur-xl backdrop-saturate-150 transition-shadow duration-300",
+        pathname === "/" && "max-md:border-transparent max-md:bg-[#1b0e0a] max-md:text-[#fff4ed]",
         scrolled && "shadow-lift",
       )}
     >
       {/* Soft lift in the middle of the bar, as on the reference */}
       <span aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_120%_at_50%_0%,var(--color-bar-glow),transparent_70%)]" />
 
-      <div className="relative mx-auto flex h-16 max-w-[1504px] items-center gap-4 px-4 md:h-[76px] md:px-7 xl:h-[88px] xl:px-10">
+      <div className="relative mx-auto flex h-16 max-w-[1504px] items-center gap-4 px-4 max-md:h-[68px] max-md:gap-2 md:h-[76px] md:px-7 xl:h-[88px] xl:px-10">
         <div className="flex flex-1 basis-0 items-center">
           <Link href="/" className="flex-none no-underline" aria-label={`${EVENT.name}, home`}>
-            <Image src="/brand/rkp-logo.svg" alt="" width={1257} height={378} priority unoptimized className="h-9 w-auto dark:hidden sm:h-10 md:h-11 xl:h-[50px]" />
-            <Image src="/brand/rkp-logo-dark.svg" alt="" width={1354} height={428} priority unoptimized className="hidden h-9 w-auto dark:block sm:h-10 md:h-11 xl:h-[50px]" />
+            <Image src="/brand/rkp-logo.svg" alt="" width={1257} height={378} priority unoptimized className="h-9 w-auto dark:hidden max-md:hidden sm:h-10 md:h-11 xl:h-[50px]" />
+            <Image src="/brand/rkp-logo-dark.svg" alt="" width={1354} height={428} priority unoptimized className="hidden h-9 w-auto dark:block max-md:block max-md:h-9 sm:h-10 md:h-11 xl:h-[50px]" />
           </Link>
         </div>
 
@@ -93,11 +95,12 @@ export function Header() {
             Badge counts are placeholders. The festival icons they replace were:
             Book my seat (/#book, "ticket"), Instagram (EVENT.instagram, "instagram"), Add to calendar (EVENT.calendarUrl, "calendarPlus").
           */}
+          <IconLink href="/authors" icon="search" label="Search" className={cn("md:hidden", homeMobileIcon)} />
           <IconLink href={EVENT.shopUrl} icon="user" label="My account" external className="hidden md:grid" />
-          <IconLink href="https://wa.me/919810281912" icon="whatsapp" label="Chat on WhatsApp" external className="hidden md:grid" />
-          <IconLink href={EVENT.shopUrl} icon="heart" label="Wishlist" external badge={1} iconClass="fill-current text-wish-red dark:text-[#f6a29c]" />
-          <IconLink href={EVENT.shopUrl} icon="cart" label="Cart" external badge={7} />
-          <ThemeToggle className={navIconClass} />
+          <IconLink href="https://wa.me/919810281912" icon="whatsapp" label="Chat on WhatsApp" external className={homeMobileIcon} />
+          <IconLink href={EVENT.shopUrl} icon="heart" label="Wishlist" external badge={1} iconClass="fill-current text-wish-red dark:text-[#f6a29c]" className="hidden md:grid" />
+          <IconLink href={EVENT.shopUrl} icon="cart" label="Cart" external badge={7} className="hidden md:grid" />
+          <ThemeToggle className={cn(navIconClass, homeMobileIcon)} />
         </div>
       </div>
     </header>
