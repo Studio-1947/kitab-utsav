@@ -92,11 +92,11 @@ export function Slab({
     >
       <span className={cn("absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)] [transform-style:preserve-3d]", turn)}>
         {/* Front */}
-        <span className="absolute inset-0 [backface-visibility:hidden]">
+        <span className="absolute inset-0 flex flex-col [backface-visibility:hidden]">
           <span className="absolute inset-0 bg-[linear-gradient(170deg,#7d1818_0%,#6a1212_55%,#5a0f0f_100%)]" style={shape.card} />
 
-          {/* Full-height photo area: it follows the card's outer slope and ends right above the caption. */}
-          <span className="absolute left-[3%] right-[3%] top-[3%] bottom-[19%] overflow-hidden bg-slab-face max-md:bottom-[23%]" style={shape.photo}>
+          {/* Photo area: follows the card's outer slope and fills whatever height the caption leaves, so they never overlap. */}
+          <span className="relative mx-[3%] mt-[3%] min-h-0 flex-1 overflow-hidden bg-slab-face" style={shape.photo}>
             {photo && (
               <Image
                 src={photo.src}
@@ -112,7 +112,7 @@ export function Slab({
           </span>
 
           {/* Caption */}
-          <span className="absolute inset-x-[9%] bottom-[7%] flex flex-col gap-[0.35em] text-left text-[clamp(0.82rem,3.6vw,0.95rem)] text-white max-md:inset-x-[6%] max-md:bottom-[7%] max-md:gap-[0.3em] max-md:text-[0.95rem] md:text-[clamp(0.7rem,1.05vw,0.95rem)]">
+          <span className="relative flex flex-none flex-col gap-[0.35em] px-[9%] pb-[12%] pt-[0.7em] text-left text-[clamp(0.82rem,3.6vw,0.95rem)] text-white max-md:gap-[0.3em] max-md:px-[6%] max-md:pb-[7%] max-md:pt-[0.6em] max-md:text-[0.95rem] md:text-[clamp(0.7rem,1.05vw,0.95rem)]">
             <span className="line-clamp-2 text-[max(0.66rem,0.72em)] font-semibold uppercase tracking-[0.08em] text-gold max-md:text-[0.7rem] md:tracking-[0.1em]">{eyebrow}</span>
             <span className="flex items-center justify-between gap-2 text-[1.35em] font-semibold leading-tight max-md:text-[1.3rem]">
               {title}
